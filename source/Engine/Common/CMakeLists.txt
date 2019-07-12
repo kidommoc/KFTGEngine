@@ -5,3 +5,7 @@ add_library(Common
 	Root.cpp
 	types.hpp
 )
+
+target_link_libraries(Common
+	Memory
+)

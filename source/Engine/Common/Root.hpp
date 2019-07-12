@@ -1,6 +1,7 @@
 #pragma once
 
 #include "types.hpp"
+#include "../Memory/MemoryManager.hpp"
 
 namespace KFTG
 {
@@ -17,6 +18,9 @@ public:
 private:
 	Root ();
 	bool _isQuit;
+
+	//Modules
+	MemoryManager _memoryManager;
 };
 
 }

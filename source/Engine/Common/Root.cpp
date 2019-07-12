@@ -5,10 +5,12 @@ namespace KFTG
 
 Root::Root ()
 {
+	_memoryManager.init ();
 }
 
 Root::~Root ()
 {
+	_memoryManager.exit ();
 }
 
 Root& Root::instance ()
@@ -19,6 +21,7 @@ Root& Root::instance ()
 
 void Root::loop ()
 {
+	_memoryManager.freeFrame ();
 }
 
 }
