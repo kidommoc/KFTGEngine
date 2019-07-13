@@ -2,56 +2,36 @@
 
 #include "../Common/types.hpp"
 #include "../Common/Module.hpp"
+#include "Allocators.hpp"
 
 #define MEM_STACK_SIZE 104857600
+#define MEM_HEAP_SIZE 104857600
 
 namespace KFTG
 {
 
-class StackAllocator
-{
-public:
-	StackAllocator (u32 size);
-	~StackAllocator ();
-	void* allocL (u32 size);
-	void* allocH (u32 size);
-	u32 getMarkerL () { return _markerL; }
-	void freeLToMarker (u32 m) { _markerL = m; }
-	u32 getMarkerH () { return _markerH; }
-	void freeHToMarker (u32 m) { _markerH = m; }
-
-private:
-	char *_mem;
-	u32 _size;
-	u32 _markerL;
-	u32 _markerH;
-};
-
 class MemoryManager : public Module
 {
 public:
-	enum Status
-	{
-		Global, Scene, Frame
-	};
-
 	MemoryManager () {}
 	~MemoryManager () {}
 	virtual void init ();
 	virtual void exit ();
 
-	void setGlobal ();
-	void setScene ();
-	void setFrame ();
-	void* alloc (u32 size);
+	void* allocScene (u32 size);
+	void* allocFrame (u32 size);
+	void* allocAsset (u32 size);
+	PoolAllocator& allocPool (u32 size, u32 len);
 	void freeScene ();
 	void freeFrame ();
+	void freeAsset (void *p);
+	void freePool (PoolAllocator& p);
 
 private:
-	Status st;
-	StackAllocator *_allocator;
-	u32 _allocatorSize;
-	u32 _sceneMarker;
+	StackAllocator *_stackAllocator;
+	HeapAllocator *_assetAllocator;
+	u32 _stackAllocatorSize;
+	u32 _assetAllocatorSize;
 };
 
 }

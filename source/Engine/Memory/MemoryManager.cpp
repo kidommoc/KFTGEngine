@@ -3,96 +3,44 @@
 namespace KFTG
 {
 
-// StackAllocator
-
-StackAllocator::StackAllocator (u32 size)
-	: _size (size), _markerL (0), _markerH (size)
-{
-	_mem = new char[size];
-}
-
-StackAllocator::~StackAllocator ()
-{
-	delete[] _mem;
-}
-
-void* StackAllocator::allocL (u32 size)
-{
-	if (size > _markerH - _markerL)
-		return nullptr;
-	void *tmp = _mem + _markerL;
-	_markerL += size;
-	return tmp;
-}
-
-void* StackAllocator::allocH (u32 size)
-{
-	if (size > _markerH - _markerL)
-		return nullptr;
-	void *tmp = _mem + _markerH - size;
-	_markerH -= size;
-	return tmp;
-}
-
-void StackAllocator::defragmentL ()
-{
-	u32 marker = _markerL;
-}
-
 // MemoryManager
 
 void MemoryManager::init ()
 {
-	st = Status::Global;
-	_allocatorSize = MEM_STACK_SIZE;
-	_allocator = new StackAllocator (_allocatorSize);
+	_stackAllocatorSize = MEM_STACK_SIZE;
+	_stackAllocator = new StackAllocator (_stackAllocatorSize);
+	_assetAllocatorSize = MEM_HEAP_SIZE;
+	_assetAllocator = new HeapAllocator (_assetAllocatorSize);
 }
 
 void MemoryManager::exit ()
 {
-	delete _allocator;
+	delete _stackAllocator;
+	delete _assetAllocator;
 }
 
-void MemoryManager::setGlobal ()
+void* MemoryManager::allocScene (u32 size)
 {
-	freeScene ();
-	st = Status::Global;
+	return _stackAllocator->allocL (size);
 }
 
-void MemoryManager::setScene ()
+void* MemoryManager::allocFrame (u32 size)
 {
-	freeFrame ();
-	_sceneMarker = _allocator->getMarkerL ();
+	return _stackAllocator->allocH(size);
 }
 
-void* MemoryManager::alloc (u32 size)
+PoolAllocator& MemoryManager::allocPool (u32 size, u32 len)
 {
-	void *tmp;
-	switch (st)
-	{
-		case Status::Global:
-		case Status::Scene:
-			tmp = _allocator->allocL (size);
-			break;
-		case Status::Frame:
-			tmp = _allocator->allocH (size);
-			break;
-		default:
-			break;
-	}
-	return tmp;
 }
 
 void MemoryManager::freeScene ()
 {
-	if (st == Status::Scene)
-		_allocator->freeLToMarker (_sceneMarker);
+	_stackAllocator->freeLToMarker (0);
 }
 
 void MemoryManager::freeFrame ()
 {
-	if (st = Status::Frame)
-		_allocator->freeHToMarker (_allocatorSize);
+	_stackAllocator->freeHToMarker (_stackAllocatorSize);
 }
 
 } //end namespace KFTG
