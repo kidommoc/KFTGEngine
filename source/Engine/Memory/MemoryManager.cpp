@@ -3,8 +3,10 @@
 namespace KFTG
 {
 
+// StackAllocator
+
 StackAllocator::StackAllocator (u32 size)
-	: _size (size), _markerL (0), _markerH (size - 1)
+	: _size (size), _markerL (0), _markerH (size)
 {
 	_mem = new char[size];
 }
@@ -31,6 +33,13 @@ void* StackAllocator::allocH (u32 size)
 	_markerH -= size;
 	return tmp;
 }
+
+void StackAllocator::defragmentL ()
+{
+	u32 marker = _markerL;
+}
+
+// MemoryManager
 
 void MemoryManager::init ()
 {
