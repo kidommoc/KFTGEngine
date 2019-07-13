@@ -4,6 +4,8 @@ add_library(Common
 	Root.hpp
 	Root.cpp
 	types.hpp
+	Utils.hpp
+	Utils.cpp
 )
 
 target_link_libraries(Common
