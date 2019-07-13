@@ -23,22 +23,36 @@ HeapAllocator::~HeapAllocator ()
 
 void* HeapAllocator::alloc (u32 size)
 {
-	do
+	BlockNode *tmp = _freeBlock, *prev = nullptr;
+	while (tmp)
 	{
-		if (_freeBlock->size < size)
-			continue;
-		else if (_freeBlock->size == size)
+		if (tmp->size < size)
 		{
+			tmp = tmp->next;
+			continue;
 		}
-		BlockNode *tmp = (BlockNode*) _pool.alloc ();
-		tmp->p = _freeBlock->p + size;
-		tmp->next = _freeBlock->next;
-		tmp->size = _freeBlock->size - size;
-		void *tmpreturn = _freeBlock->p;
-		_freeBlock = tmp;
+		else if (tmp->size == size)
+		{
+			if (prev)
+				prev->next = tmp->next;
+			else
+				_freeBlock = tmp->next;
+			_pool.free (tmp);
+			return tmp->p;
+		}
+		BlockNode *tmpblock = (BlockNode*) _pool.alloc ();
+		tmpblock->p = tmp->p + size;
+		tmpblock->next = tmp->next;
+		tmpblock->size = tmp->size - size;
+		void *tmpreturn = tmp->p;
+		if (prev)
+			prev->next = tmpblock;
+		else
+			_freeBlock = tmpblock;
+		_pool.free (tmp);
 		return tmpreturn;
-	} while (_freeBlock->next);
-	
+	}
+	return nullptr;
 }
 
 void HeapAllocator::free (void *p)

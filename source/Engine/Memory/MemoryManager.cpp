@@ -29,10 +29,6 @@ void* MemoryManager::allocFrame (u32 size)
 	return _stackAllocator->allocH(size);
 }
 
-PoolAllocator& MemoryManager::allocPool (u32 size, u32 len)
-{
-}
-
 void MemoryManager::freeScene ()
 {
 	_stackAllocator->freeLToMarker (0);

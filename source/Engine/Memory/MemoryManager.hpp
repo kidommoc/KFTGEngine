@@ -21,7 +21,7 @@ public:
 	void* allocScene (u32 size);
 	void* allocFrame (u32 size);
 	void* allocAsset (u32 size);
-	PoolAllocator& allocPool (u32 size, u32 len);
+	//PoolAllocator& allocPool (u32 size, u32 len);
 	void freeScene ();
 	void freeFrame ();
 	void freeAsset (void *p);
