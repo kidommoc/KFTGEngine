@@ -30,21 +30,25 @@ private:
 class MemoryManager : public Module
 {
 public:
+	enum Status
+	{
+		Global, Scene, Frame
+	};
+
 	MemoryManager () {}
 	~MemoryManager () {}
 	virtual void init ();
 	virtual void exit ();
 
+	void setGlobal ();
 	void setScene ();
-	void unsetScene ();
-	void* allocGlobal (u32 size);
-	void* allocScene (u32 size);
+	void setFrame ();
+	void* alloc (u32 size);
 	void freeScene ();
-	void* allocFrame (u32 size);
 	void freeFrame ();
 
 private:
-	bool _inScene;
+	Status st;
 	StackAllocator *_allocator;
 	u32 _allocatorSize;
 	u32 _sceneMarker;

@@ -34,7 +34,7 @@ void* StackAllocator::allocH (u32 size)
 
 void MemoryManager::init ()
 {
-	_inScene = false;
+	st = Status::Global;
 	_allocatorSize = MEM_STACK_SIZE;
 	_allocator = new StackAllocator (_allocatorSize);
 }
@@ -44,49 +44,46 @@ void MemoryManager::exit ()
 	delete _allocator;
 }
 
+void MemoryManager::setGlobal ()
+{
+	freeScene ();
+	st = Status::Global;
+}
+
 void MemoryManager::setScene ()
 {
-	_inScene = true;
+	freeFrame ();
 	_sceneMarker = _allocator->getMarkerL ();
 }
 
-void MemoryManager::unsetScene ()
+void* MemoryManager::alloc (u32 size)
 {
-	freeScene ();
-	_inScene = false;
-}
-
-void* MemoryManager::allocGlobal (u32 size)
-{
-	if (!_inScene)
-		return _allocator->allocL (size);
-	else
-		return nullptr;
-	
-}
-
-void* MemoryManager::allocScene (u32 size)
-{
-	if (_inScene)
-		return _allocator->allocL (size);
-	else
-		return nullptr;
+	void *tmp;
+	switch (st)
+	{
+		case Status::Global:
+		case Status::Scene:
+			tmp = _allocator->allocL (size);
+			break;
+		case Status::Frame:
+			tmp = _allocator->allocH (size);
+			break;
+		default:
+			break;
+	}
+	return tmp;
 }
 
 void MemoryManager::freeScene ()
 {
-	if (_inScene)
+	if (st == Status::Scene)
 		_allocator->freeLToMarker (_sceneMarker);
-}
-
-void* MemoryManager::allocFrame (u32 size)
-{
-	return _allocator->allocH (size);
 }
 
 void MemoryManager::freeFrame ()
 {
-	_allocator->freeHToMarker (_allocatorSize);
+	if (st = Status::Frame)
+		_allocator->freeHToMarker (_allocatorSize);
 }
 
 } //end namespace KFTG
