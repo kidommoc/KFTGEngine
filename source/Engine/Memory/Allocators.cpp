@@ -6,14 +6,16 @@ namespace KFTG
 // HeapAllocator
 
 HeapAllocator::HeapAllocator (u32 size)
-	: _size (size), _freeBlock (nullptr),
+	: _size (size), _blockNodes (nullptr),
 	_pool (sizeof (BlockNode), MEM_STACK_POOL_LEN)
 {
 	_mem = new char[size];
-	_freeBlock = (BlockNode*) _pool.alloc ();
-	_freeBlock->p = _mem;
-	_freeBlock->size = _size;
-	_freeBlock->next = nullptr;
+	_blockNodes = (BlockNode*) _pool.alloc ();
+	_blockNodes->used = false;
+	_blockNodes->p = _mem;
+	_blockNodes->size = _size;
+	_blockNodes->prev = nullptr;
+	_blockNodes->next = nullptr;
 }
 
 HeapAllocator::~HeapAllocator ()
@@ -23,41 +25,73 @@ HeapAllocator::~HeapAllocator ()
 
 void* HeapAllocator::alloc (u32 size)
 {
-	BlockNode *tmp = _freeBlock, *prev = nullptr;
+	BlockNode *tmp = _blockNodes;
 	while (tmp)
 	{
-		if (tmp->size < size)
+		if (tmp->used || tmp->size < size)
 		{
 			tmp = tmp->next;
 			continue;
 		}
-		else if (tmp->size == size)
+
+		if (tmp->size == size)
 		{
-			if (prev)
-				prev->next = tmp->next;
-			else
-				_freeBlock = tmp->next;
-			_pool.free (tmp);
+			tmp->used = true;
 			return tmp->p;
 		}
-		BlockNode *tmpblock = (BlockNode*) _pool.alloc ();
-		tmpblock->p = tmp->p + size;
-		tmpblock->next = tmp->next;
-		tmpblock->size = tmp->size - size;
-		void *tmpreturn = tmp->p;
-		if (prev)
-			prev->next = tmpblock;
-		else
-			_freeBlock = tmpblock;
+
+		BlockNode *tmpnode = (BlockNode*) _pool.alloc ();
+		tmpnode->used = false;
+		tmpnode->p = tmp->p + size;
+		tmpnode->next = tmp->next;
+		tmpnode->size = tmp->size - size;
+		tmp->size = size;
+		tmp->next = tmpnode;
+		tmp->used = true;
 		_pool.free (tmp);
-		return tmpreturn;
+		return tmp->p;
 	}
 	return nullptr;
 }
 
 void HeapAllocator::free (void *p)
 {
-	BlockNode *tmp = _freeBlock;
+	BlockNode *tmp = _blockNodes;
+
+	while (tmp)
+	{
+		if (tmp->p == p)
+		{
+			tmp->used = false;
+
+			// Merge backward
+			if (tmp->prev && !tmp->prev->used)
+			{
+				BlockNode *tmpb = tmp->prev;
+				if (tmpb->prev)
+					tmpb->prev->next = tmp;
+				tmp->p = tmpb->p;
+				tmp->size += tmpb->size;
+				tmp->prev = tmpb->prev;
+				_pool.free (tmpb);
+			}
+
+			// Merge forward
+			if (tmp->next && !tmp->next->used)
+			{
+				BlockNode *tmpb = tmp->next;
+				if (tmpb->next)
+					tmpb->next->prev = tmp;
+				tmp->p = tmpb->p;
+				tmp->size += tmpb->size;
+				tmp->next = tmpb->next;
+				_pool.free (tmpb);
+			}
+
+			return;
+		}
+		tmp = tmp->next;
+	}
 }
 
 // StackAllocator
@@ -119,6 +153,8 @@ void* PoolAllocator::alloc ()
 
 void PoolAllocator::free (void *p)
 {
+	if (!p)
+		return;
 	void **tmp = (void**) p;
 	*tmp = *((void**) _next);
 	_next = p;

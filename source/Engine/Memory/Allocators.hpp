@@ -39,14 +39,16 @@ public:
 private:
 	struct BlockNode
 	{
+		bool used;
 		void *p;
 		u32 size;
+		BlockNode *prev;	
 		BlockNode *next;
 	};
 
 	u32 _size;
 	char *_mem;
-	BlockNode *_freeBlock;
+	BlockNode *_blockNodes;
 	PoolAllocator _pool;
 };
 
