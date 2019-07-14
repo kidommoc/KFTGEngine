@@ -1,5 +1,7 @@
 project(Common)
 add_library(Common
+	Math.hpp
+	Math.cpp
 	Module.hpp
 	Root.hpp
 	Root.cpp
