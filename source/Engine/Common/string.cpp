@@ -6,8 +6,8 @@ namespace KFTG
 string::string (const char *s)
 	: len (0)
 {
-	while (s[len++])
-		;
+	while (s[len])
+		len++;
 	str = (char*) Root::instance ()._memoryManager->allocAsset (len);
 	std::memcpy (str, s, len);
 }
@@ -87,8 +87,8 @@ string& string::operator += (const char c)
 string& string::operator += (const char *s)
 {
 	u32 l = 0;
-	while (s[l++])
-		;
+	while (s[l])
+		l++;
 	char *tmp = (char*) Root::instance ()._memoryManager->allocAsset (len + l);
 	std::memcpy (tmp, str, len);
 	std::memcpy (tmp + len, s, l);
@@ -130,6 +130,39 @@ string& string::operator + (const string &s) const
 	return tmp;
 }
 
+bool string::operator == (const string &s) const
+{
+	if (len != s.len)
+		return false;
+	for (u32 i = 0; i < len; ++i)
+		if (str[i] != s.str[i])
+			return false;
+	return true;
+}
+
+bool string::operator == (const char *s) const
+{
+	u32 l = 0;
+	while (s[l])
+		++l;
+	if (len != l)
+		return false;
+	for (u32 i = 0; i < len; ++i)
+		if (str[i] != s[i])
+			return false;
+	return true;
+}
+
+bool string::operator != (const string &s) const
+{
+	return !(*this == s);
+}
+
+bool string::operator != (const char *s) const
+{
+	return !(*this == s);
+}
+
 string& operator + (const char c, const string &s)
 {
 	char *tmp = (char*) Root::instance ()._memoryManager->allocAsset (s.len + 1);
@@ -143,14 +176,24 @@ string& operator + (const char c, const string &s)
 string& operator + (const char *c, const string &s)
 {
 	u32 l = 0;
-	while (c[l++])
-		;
+	while (c[l])
+		++l;
 	char *tmp = (char*) Root::instance ()._memoryManager->allocAsset (s.len + l);
 	std::memcpy (tmp, c, l);
 	std::memcpy (tmp + l, s.str, s.len);
 	string tmps (tmp);
 	Root::instance ()._memoryManager->freeAsset (tmp);
 	return tmps;
+}
+
+bool operator == (const char *s1, const string &s2)
+{
+	return s2 == s1;
+}
+
+bool operator != (const char *s1, const string &s2)
+{
+	return s2 != s1;
 }
 
 }

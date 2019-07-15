@@ -35,6 +35,12 @@ public:
 	string& operator + (const string &s) const;
 	friend string& operator + (const char c, const string &s);
 	friend string& operator + (const char *c, const string &s);
+	bool operator == (const string &s) const;
+	bool operator == (const char *s) const ;
+	friend bool operator == (const char *s1, const string &s2);
+	bool operator != (const string &s) const;
+	bool operator != (const char *s) const;
+	friend bool operator != (const char *s1, const string &s2);
 
 private:
 	u32 len;
@@ -43,5 +49,7 @@ private:
 
 string& operator + (const char c, const string &s);
 string& operator + (const char *c, const string &s);
+bool operator == (const char *s1, const string &s2);
+bool operator != (const char *s1, const string &s2);
 
 }
