@@ -65,6 +65,18 @@ string& string::substr (u32 from, u32 l)
 	return tmpstr;
 }
 
+string& string::operator = (const char *s)
+{
+	u32 l = 0;
+	while (s[l])
+		++l;
+	Root::instance ()._memoryManager->freeAsset (str);
+	len = l;
+	str = (char*) Root::instance ()._memoryManager->allocAsset (len);
+	std::memcpy (str, s, len);
+	return *this;
+}
+
 string& string::operator = (const string &s)
 {
 	Root::instance ()._memoryManager->freeAsset (str);

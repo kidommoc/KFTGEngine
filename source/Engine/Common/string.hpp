@@ -17,13 +17,14 @@ public:
 	string (const string &s);
 	~string ();
 
-	u32 getLen () { return len; }
-	const char* getCStr () { return str; }
+	u32 getLen () const { return len; }
+	const char* getCStr () const { return str; }
 	void insert (char c, u32 pos);
 	void insert (const string &s, u32 pos);
 	void erase (u32 pos, u32 l);
 	string& substr (u32 from, u32 l);
 
+	string& operator = (const char *s);
 	string& operator = (const string &s);
 	string& operator += (const char c);
 	string& operator += (const char *s);
