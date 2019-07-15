@@ -7,6 +7,6 @@ namespace KFTG
 {
 
 // hash: lookup3
-u32 hash (string key);
+u32 hash (const string &key);
 
 }

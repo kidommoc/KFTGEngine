@@ -3,7 +3,7 @@
 namespace KFTG
 {
 
-u32 hash (string key)
+u32 hash (const string &key)
 {
 	u32 h = 0;
 
