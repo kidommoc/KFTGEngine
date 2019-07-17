@@ -5,12 +5,18 @@ namespace KFTG
 
 Root::Root ()
 {
-	_memoryManager.init ();
+	_memoryManager = new MemoryManager ();
+	_memoryManager->init ();
+	// others
+	_time = new Time ();
+	_time->init ();
 }
 
 Root::~Root ()
 {
-	_memoryManager.exit ();
+	_time->exit ();
+	// others
+	_memoryManager->exit ();
 }
 
 Root& Root::instance ()
@@ -21,7 +27,7 @@ Root& Root::instance ()
 
 void Root::loop ()
 {
-	_memoryManager.freeFrame ();
+	_memoryManager->freeFrame ();
 }
 
 }
