@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Common/types.hpp"
+#include "../Core/types.hpp"
 
 namespace KFTG
 {

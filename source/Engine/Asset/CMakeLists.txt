@@ -8,6 +8,6 @@ add_library(Asset
 )
 
 target_link_libraries(Asset
-	Common
+	Core
 	Memory
 )

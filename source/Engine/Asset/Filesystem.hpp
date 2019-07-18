@@ -1,8 +1,8 @@
 #pragma once
 
 #include <windows.h>
-#include "../Common/types.hpp"
-#include "../Common/Math.hpp"
+#include "../Core/types.hpp"
+#include "../Core/Math.hpp"
 
 #define ASYNC_TABLE_SIZE 1000
 

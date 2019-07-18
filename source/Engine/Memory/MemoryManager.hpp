@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../Common/types.hpp"
-#include "../Common/Module.hpp"
+#include "../Core/types.hpp"
+#include "../Core/Module.hpp"
 #include "Allocators.hpp"
 
 #define MEM_STACK_SIZE 104857600

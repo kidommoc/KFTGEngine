@@ -6,6 +6,6 @@ add_executable(${GAME_NAME} main.cpp)
 
 target_link_libraries(test
 	Asset
-	Common
+	Core
 	Memory
 )

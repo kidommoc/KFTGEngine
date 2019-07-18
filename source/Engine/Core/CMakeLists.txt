@@ -1,5 +1,5 @@
-project(Common)
-add_library(Common
+project(Core)
+add_library(Core
 	Math.hpp
 	Math.cpp
 	Module.hpp
@@ -12,7 +12,7 @@ add_library(Common
 	types.hpp
 )
 
-target_link_libraries(Common
+target_link_libraries(Core
 	Asset
 	Memory
 )

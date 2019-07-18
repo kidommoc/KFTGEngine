@@ -3,5 +3,5 @@ project(Engine)
 
 add_subdirectory(App)
 add_subdirectory(Asset)
-add_subdirectory(Common)
+add_subdirectory(Core)
 add_subdirectory(Memory)

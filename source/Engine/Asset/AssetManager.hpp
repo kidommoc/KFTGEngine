@@ -1,10 +1,10 @@
 #pragma once
 
 #include <new>
-#include "../Common/types.hpp"
-#include "../Common/Module.hpp"
-#include "../Common/Root.hpp"
-#include "../Common/Math.hpp"
+#include "../Core/types.hpp"
+#include "../Core/Module.hpp"
+#include "../Core/Root.hpp"
+#include "../Core/Math.hpp"
 #include "../Memory/Allocators.hpp"
 #include "AssetTypes.hpp"
 #include "Filesystem.hpp"
