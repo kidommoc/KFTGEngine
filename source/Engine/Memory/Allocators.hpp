@@ -1,8 +1,6 @@
 #pragma once
 
 #include "../Common/types.hpp"
-//#include "../Common/Root.hpp"
-//#include <cstdlib>
 
 #define MEM_STACK_POOL_LEN 65535
 

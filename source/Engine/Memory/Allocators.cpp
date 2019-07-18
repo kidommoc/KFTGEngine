@@ -25,6 +25,8 @@ HeapAllocator::~HeapAllocator ()
 
 void* HeapAllocator::alloc (u32 size)
 {
+	if (size == 0)
+		return nullptr;
 	BlockNode *tmp = _blockNodes;
 	while (tmp)
 	{
@@ -109,6 +111,8 @@ StackAllocator::~StackAllocator ()
 
 void* StackAllocator::allocL (u32 size)
 {
+	if (size == 0)
+		return nullptr;
 	if (size > _markerH - _markerL)
 		return nullptr;
 	void *tmp = _mem + _markerL;
@@ -118,6 +122,8 @@ void* StackAllocator::allocL (u32 size)
 
 void* StackAllocator::allocH (u32 size)
 {
+	if (size == 0)
+		return nullptr;
 	if (size > _markerH - _markerL)
 		return nullptr;
 	void *tmp = _mem + _markerH - size;
