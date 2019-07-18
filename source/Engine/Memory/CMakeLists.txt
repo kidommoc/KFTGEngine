@@ -7,5 +7,6 @@ add_library(Memory
 )
 
 target_link_libraries(Memory
+	Asset
 	Common
 )

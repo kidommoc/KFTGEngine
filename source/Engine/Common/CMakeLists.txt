@@ -5,11 +5,14 @@ add_library(Common
 	Module.hpp
 	Root.hpp
 	Root.cpp
-	types.hpp
 	string.hpp
 	string.cpp
+	Time.hpp
+	Time.cpp
+	types.hpp
 )
 
 target_link_libraries(Common
+	Asset
 	Memory
 )
