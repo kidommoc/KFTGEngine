@@ -1,7 +1,5 @@
 #pragma once
 
-#include "string.hpp"
-
 namespace KFTG
 {
 

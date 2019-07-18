@@ -1,4 +1,7 @@
 #include "Root.hpp"
+#include "../Memory/MemoryManager.hpp"
+#include "Time.hpp"
+#include "../Asset/AssetManager.hpp"
 
 namespace KFTG
 {

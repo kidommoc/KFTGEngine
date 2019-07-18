@@ -1,4 +1,9 @@
+#include <new>
 #include "AssetManager.hpp"
+#include "../Core/Root.hpp"
+#include "../Core/Math.hpp"
+#include "../Memory/Allocators.hpp"
+#include "../Memory/MemoryManager.hpp"
 
 namespace KFTG
 {

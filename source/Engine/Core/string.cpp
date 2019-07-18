@@ -1,4 +1,7 @@
+#include <cstring>
 #include "string.hpp"
+#include "Root.hpp"
+#include "../Memory/MemoryManager.hpp"
 
 namespace KFTG
 {

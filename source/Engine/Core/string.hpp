@@ -1,10 +1,6 @@
 #pragma once
 
-#include <cstring>
-
 #include "types.hpp"
-#include "../Memory/MemoryManager.hpp"
-#include "Root.hpp"
 
 namespace KFTG
 {

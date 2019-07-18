@@ -1,4 +1,6 @@
+#include <windows.h>
 #include "Filesystem.hpp"
+#include "../Core/Math.hpp"
 
 namespace KFTG
 {
@@ -79,6 +81,16 @@ void Filesystem::asyncWrite (const string &path, void *content, u32 size)
 	HANDLE hFile = CreateFileA (path.getCStr (), GENERIC_WRITE, FILE_SHARE_READ,
 		NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	// Async Write
+}
+
+bool Filesystem::queryAsyncIO (const string &path)
+{
+	return _tableAsync[hash (path) / 1000];
+}
+
+void Filesystem::clearAsyncIO (const string &path)
+{
+	_tableAsync[hash (path) / 1000] = false;
 }
 
 void finishAsyncIO (Filesystem *fs, u32 index)

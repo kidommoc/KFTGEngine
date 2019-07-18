@@ -1,8 +1,8 @@
 #pragma once
 
-#include <windows.h>
+#include "../Core/string.hpp"
+#include "../Memory/Allocators.hpp"
 #include "../Core/types.hpp"
-#include "../Core/Math.hpp"
 
 #define ASYNC_TABLE_SIZE 1000
 
@@ -31,13 +31,11 @@ public:
 	void syncWrite (const string &path, void *content, u32 size);
 	void asyncRead (const string &path, void *buf, u32 size);
 	void asyncWrite (const string &path, void *content, u32 size);
-	bool queryAsyncIO (const string &path)
-		{ return _tableAsync[hash (path) / 1000]; }
-	void clearAsyncIO (const string &path)
-		{ _tableAsync[hash (path) / 1000] = false; }
+	bool queryAsyncIO (const string &path);
+	void clearAsyncIO (const string &path);
 	friend void finishAsyncIO (Filesystem *fs, u32 index);
-	friend void readThread (LPVOID lpParam);
-	friend void writeThread (LPVOID lpParam);
+	friend void readThread (void *lpParam);
+	friend void writeThread (void *lpParam);
 
 private:
 	Filesystem ();
@@ -48,7 +46,7 @@ private:
 };
 
 void finishAsyncIO (Filesystem *fs, u32 index);
-void readThread (LPVOID lpParam);
-void writeThread (LPVOID lpParam);
+void readThread (void *lpParam);
+void writeThread (void *lpParam);
 
 }

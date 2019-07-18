@@ -1,8 +1,7 @@
 #pragma once
 
-#include <sys/time.h>
-#include "../Common/types.hpp"
-#include "../Common/Module.hpp"
+#include "types.hpp"
+#include "Module.hpp"
 
 namespace KFTG
 {

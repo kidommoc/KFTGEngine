@@ -1,11 +1,8 @@
 #pragma once
 
-#include <new>
+#include "../Core/string.hpp"
 #include "../Core/types.hpp"
 #include "../Core/Module.hpp"
-#include "../Core/Root.hpp"
-#include "../Core/Math.hpp"
-#include "../Memory/Allocators.hpp"
 #include "AssetTypes.hpp"
 #include "Filesystem.hpp"
 
