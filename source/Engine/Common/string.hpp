@@ -13,7 +13,7 @@ class string
 {
 public:
 	string () = delete;
-	explicit string (const char *s);
+	string (const char *s);
 	string (const string &s);
 	~string ();
 
