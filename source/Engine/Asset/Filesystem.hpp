@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Core/Module.hpp"
 #include "../Core/string.hpp"
 #include "../Memory/Allocators.hpp"
 #include "../Core/types.hpp"
@@ -9,7 +10,7 @@
 namespace KFTG
 {
 
-class Filesystem
+class Filesystem : public Singleton<Filesystem>
 {
 public:
 	struct AsyncIOInfo
@@ -22,7 +23,7 @@ public:
 		void (*finish) (Filesystem *fs, u32 index);
 	};
 
-	static Filesystem& instance ();
+	Filesystem ();
 	~Filesystem ();
 
 	void touchFile (const string &path);
@@ -38,9 +39,6 @@ public:
 	friend void writeThread (void *lpParam);
 
 private:
-	Filesystem ();
-
-	static Filesystem *_instance;
 	bool *_tableAsync;
 	PoolAllocator *_pool;
 };

@@ -11,10 +11,10 @@
 namespace KFTG
 {
 
-class AssetRegistry
+class AssetRegistry : public Singleton<AssetRegistry>
 {
 public:
-	static AssetRegistry& instance ();
+	AssetRegistry ();
 	~AssetRegistry ();
 
 	void* queryAsset (const GUID &uid, u32 &size);
@@ -31,14 +31,11 @@ private:
 		u32 size;
 	};
 
-	AssetRegistry ();
-
-	static AssetRegistry *_instance;
 	u32 _tableUsed;
 	Element *_table;
 };
 
-class AssetLoader
+class AssetLoader : public Singleton<AssetLoader>
 {
 public:
 	AssetLoader ();
@@ -49,8 +46,8 @@ public:
 	void* loadAsset (const string &path);
 
 private:
-	AssetRegistry &_assetRegistry;
-	Filesystem &_fs;
+	AssetRegistry *_assetRegistry;
+	Filesystem *_fs;
 	XML *_index;
 };
 

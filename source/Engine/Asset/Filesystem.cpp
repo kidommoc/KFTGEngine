@@ -5,17 +5,11 @@
 namespace KFTG
 {
 
-Filesystem& Filesystem::instance ()
-{
-	if (!_instance)
-		_instance = new Filesystem ();
-	return *_instance;
-}
-
 Filesystem::Filesystem ()
 {
 	_tableAsync = new bool[ASYNC_TABLE_SIZE];
 	_pool = new PoolAllocator (sizeof (AsyncIOInfo), ASYNC_TABLE_SIZE);
+	_instance = const_cast<Filesystem*> (this);
 }
 
 Filesystem::~Filesystem ()

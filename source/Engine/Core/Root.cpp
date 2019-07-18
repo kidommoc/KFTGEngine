@@ -1,7 +1,4 @@
 #include "Root.hpp"
-#include "../Memory/MemoryManager.hpp"
-#include "Time.hpp"
-#include "../Asset/AssetManager.hpp"
 
 namespace KFTG
 {
@@ -25,13 +22,6 @@ Root::~Root ()
 	// others
 	_assetManager->exit ();
 	_memoryManager->exit ();
-}
-
-Root& Root::instance ()
-{
-	if (!_instance)
-		_instance = new Root ();
-	return *_instance;
 }
 
 void Root::loop ()

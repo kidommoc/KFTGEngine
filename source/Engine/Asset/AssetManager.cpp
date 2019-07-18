@@ -1,6 +1,5 @@
 #include <new>
 #include "AssetManager.hpp"
-#include "../Core/Root.hpp"
 #include "../Core/Math.hpp"
 #include "../Memory/Allocators.hpp"
 #include "../Memory/MemoryManager.hpp"
@@ -10,28 +9,22 @@ namespace KFTG
 
 // AssetRegistry
 
-AssetRegistry& AssetRegistry::instance ()
-{
-	if (!_instance)
-		_instance = new AssetRegistry ();
-	return *_instance;
-}
-
 AssetRegistry::AssetRegistry ()
 	: _tableUsed (0)
 {
-	_table = (Element*) Root::instance ()._memoryManager
+	_table = (Element*) MemoryManager::instance ()
 		->allocAsset (ASSET_TABLE_SIZE * sizeof (Element));
 	for (u32 i = 0; i < ASSET_TABLE_SIZE; ++i)
 		::new (_table + i * sizeof (Element)) Element ();
+	_instance = const_cast <AssetRegistry*> (this);
 }
 
 AssetRegistry::~AssetRegistry ()
 {
 	for (u32 i = 0; i < ASSET_TABLE_SIZE; ++i)
 		if (_table[i].asset != nullptr)
-			Root::instance ()._memoryManager->freeAsset (_table[i].asset);
-	Root::instance ()._memoryManager->freeAsset (_table);
+			MemoryManager::instance ()->freeAsset (_table[i].asset);
+	MemoryManager::instance ()->freeAsset (_table);
 }
 
 void* AssetRegistry::queryAsset (const GUID &uid, u32 &size)
@@ -136,11 +129,13 @@ void AssetRegistry::updateAssetAddr (void *former, void *later)
 // AssetLoader
 
 AssetLoader::AssetLoader ()
-	: _assetRegistry (AssetRegistry::instance ()),
-	_fs (Filesystem::instance ())
+	: _assetRegistry (AssetRegistry::instance ())
 {
-	u32 indexSize = _fs.getFileSize ("index.data");
-	_index = (XML*) Root::instance ()._memoryManager->allocAsset (indexSize);
+	_fs = new Filesystem ();
+	u32 indexSize = _fs->getFileSize ("index.data");
+	_index = (XML*) MemoryManager::instance ()->allocAsset (indexSize);
+	_fs->syncRead ("index.data", _index, indexSize);
+	_instance = const_cast<AssetLoader*> (this);
 }
 
 void* AssetLoader::loadAsset (const string &path)
@@ -150,7 +145,8 @@ void* AssetLoader::loadAsset (const string &path)
 
 AssetLoader::~AssetLoader ()
 {
-	Root::instance ()._memoryManager->freeAsset (_index);
+	MemoryManager::instance ()->freeAsset (_index);
+	delete _fs;
 }
 
 // RawAssetLoader
@@ -177,8 +173,8 @@ AssetPacker::~AssetPacker ()
 
 void AssetManager::init ()
 {
+	_assetRegistry = new AssetRegistry ();
 	_assetLoader = new AssetLoader ();
-	_assetRegistry = &AssetRegistry::instance ();
 	_assetLoader->loadAsset ("all.data");
 }
 

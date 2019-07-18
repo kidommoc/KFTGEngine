@@ -11,6 +11,7 @@ void Time::init ()
 	_prevFrameTime = _currentTime;
 	_totalTime = 0;
 	_isPause = false;
+	_instance = const_cast<Time*> (this);
 }
 
 void Time::loop ()

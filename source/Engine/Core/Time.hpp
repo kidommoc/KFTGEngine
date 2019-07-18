@@ -6,7 +6,7 @@
 namespace KFTG
 {
 
-class Time : public LoopModule
+class Time : public LoopModule, protected Singleton<Time>
 {
 public:
 	Time () {}

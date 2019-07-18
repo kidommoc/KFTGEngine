@@ -10,7 +10,7 @@
 namespace KFTG
 {
 
-class MemoryManager : public Module
+class MemoryManager : public Module, public Singleton<MemoryManager>
 {
 public:
 	MemoryManager () {}

@@ -11,6 +11,7 @@ void MemoryManager::init ()
 	_stackAllocator = new StackAllocator (_stackAllocatorSize);
 	_assetAllocatorSize = MEM_HEAP_SIZE;
 	_assetAllocator = new HeapAllocator (_assetAllocatorSize);
+	_instance = const_cast<MemoryManager*> (this);
 }
 
 void MemoryManager::exit ()
