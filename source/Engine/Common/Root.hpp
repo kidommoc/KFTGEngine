@@ -23,6 +23,8 @@ public:
 
 private:
 	Root ();
+
+	static Root *_instance;
 	bool _isQuit;
 };
 

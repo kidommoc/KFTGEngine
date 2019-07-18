@@ -21,8 +21,9 @@ Root::~Root ()
 
 Root& Root::instance ()
 {
-	static Root _instance;
-	return _instance;
+	if (!_instance)
+		_instance = new Root ();
+	return *_instance;
 }
 
 void Root::loop ()
