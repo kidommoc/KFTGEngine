@@ -3,6 +3,7 @@
 #include "types.hpp"
 #include "../Memory/MemoryManager.hpp"
 #include "Time.hpp"
+#include "../Asset/AssetManager.hpp"
 
 namespace KFTG
 {
@@ -20,6 +21,7 @@ public:
 	//Modules
 	MemoryManager *_memoryManager;
 	Time *_time;
+	AssetManager *_assetManager;
 
 private:
 	Root ();

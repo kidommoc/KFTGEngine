@@ -1,4 +1,8 @@
 add_library(Asset
+	AssetManager.hpp
+	AssetManager.cpp
+	AssetTypes.hpp
+	AssetTypes.cpp
 	Filesystem.hpp
 	Filesystem.cpp
 )
