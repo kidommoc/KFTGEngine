@@ -16,13 +16,14 @@ void Time::init ()
 
 void Time::loop ()
 {
-	if (_isPause)
-		return;
 	_prevFrameTime = _currentTime;
 	_currentTime = getTime ();
 	u32 tmp = _currentTime - _prevFrameTime;
-	_currentGameTime += tmp;
 	_totalTime += tmp;
+	if (_isPause)
+		_prevFrameTime = _currentTime;
+	else
+		_currentGameTime += tmp;
 }
 
 u64 Time::getTime ()
