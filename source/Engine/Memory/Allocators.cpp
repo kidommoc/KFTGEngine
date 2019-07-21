@@ -3,6 +3,51 @@
 namespace KFTG
 {
 
+// Pool Allocator
+
+
+PoolAllocator::PoolAllocator (u32 size, u32 len)
+	: _mem (nullptr), _next (nullptr)
+{
+	if (size < 4)
+		return;
+	
+	_mem = new char[size * len];
+	_next = _mem;
+	init (size, len);
+}
+
+PoolAllocator::~PoolAllocator ()
+{
+	delete[] _mem;
+}
+
+void* PoolAllocator::alloc ()
+{
+	void *tmp = _next;
+	_next = *((void**) _next);
+	return tmp;
+}
+
+void PoolAllocator::free (void *p)
+{
+	if (!p)
+		return;
+	void **tmp = (void**) p;
+	*tmp = *((void**) _next);
+	_next = p;
+}
+
+void PoolAllocator::init (u32 size, u32 len)
+{
+	void **tmp = (void**) _next;
+	for (u32 i = 0; i < len; ++i)
+	{
+		*tmp = *tmp + size;
+		tmp = (void**) *tmp;
+	}
+}
+
 // HeapAllocator
 
 HeapAllocator::HeapAllocator (u32 size)
@@ -129,51 +174,6 @@ void* StackAllocator::allocH (u32 size)
 	void *tmp = _mem + _markerH - size;
 	_markerH -= size;
 	return tmp;
-}
-
-// Pool Allocator
-
-
-PoolAllocator::PoolAllocator (u32 size, u32 len)
-	: _mem (nullptr), _next (nullptr)
-{
-	if (size < 4)
-		return;
-	
-	_mem = new char[size * len];
-	_next = _mem;
-	init (size, len);
-}
-
-PoolAllocator::~PoolAllocator ()
-{
-	delete[] _mem;
-}
-
-void* PoolAllocator::alloc ()
-{
-	void *tmp = _next;
-	_next = *((void**) _next);
-	return tmp;
-}
-
-void PoolAllocator::free (void *p)
-{
-	if (!p)
-		return;
-	void **tmp = (void**) p;
-	*tmp = *((void**) _next);
-	_next = p;
-}
-
-void PoolAllocator::init (u32 size, u32 len)
-{
-	void **tmp = (void**) _next;
-	for (u32 i = 0; i < len; ++i)
-	{
-		*tmp = *tmp + size;
-		tmp = (void**) *tmp;
-	}
 }
 
 }

@@ -6,6 +6,10 @@
 
 #define MEM_STACK_SIZE 104857600
 #define MEM_HEAP_SIZE 104857600
+#define XML_NODE_SIZE
+#define XML_NODE_POOL_LEN 3000
+#define XML_ATTR_SIZE
+#define XML_ATTR_POOL_LEN 12000
 
 namespace KFTG
 {
@@ -30,6 +34,8 @@ public:
 private:
 	StackAllocator *_stackAllocator;
 	HeapAllocator *_assetAllocator;
+	PoolAllocator *_XMLNodePool;
+	PoolAllocator *_XMLAttrPool;
 	u32 _stackAllocatorSize;
 	u32 _assetAllocatorSize;
 };
