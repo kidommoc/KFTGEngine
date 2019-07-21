@@ -21,6 +21,21 @@ string::string (const string &s)
 	std::memcpy (str, s.str, len);
 }
 
+string::string (u32 num)
+	: len (0)
+{
+	u32 tmp = 1;
+	for (; num / tmp; tmp *= 10) 
+		++len;
+	str = (char*) MemoryManager::instance ()->allocAsset (len);
+	tmp /= 10;
+	for (int i = 0; i < len; ++i, tmp /= 10)
+	{
+		str[i] = num / tmp;
+		num %= tmp;
+	}
+}
+
 string::~string ()
 {
 	MemoryManager::instance ()->freeAsset (str);

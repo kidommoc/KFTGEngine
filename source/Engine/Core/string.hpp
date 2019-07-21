@@ -11,6 +11,7 @@ public:
 	string () : len (0), str (nullptr) {}
 	string (const char *s);
 	string (const string &s);
+	string (u32 num);
 	~string ();
 
 	u32 getLen () const { return len; }
