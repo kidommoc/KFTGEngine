@@ -2,6 +2,7 @@
 
 #include "../Core/string.hpp"
 #include "../Core/types.hpp"
+#include "../Core/Singleton.hpp"
 #include "../Core/Module.hpp"
 #include "../Core/map.hpp"
 #include "AssetTypes.hpp"
@@ -32,7 +33,7 @@ private:
 		u32 size;
 
 		const Element& operator = (const Element &e)
-			{ asset = e.asset; size = e.size; }
+			{ asset = e.asset; size = e.size; return *this; }
 	};
 
 	map<Element> _registry;

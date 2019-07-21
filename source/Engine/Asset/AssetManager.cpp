@@ -20,7 +20,7 @@ AssetRegistry::~AssetRegistry ()
 
 void* AssetRegistry::queryAsset (const GUID &uid, u32 &size)
 {
-	Element e = _registry.query (uid);
+	Element e = *_registry.query (uid);
 	size = e.size;
 	return e.asset;
 }
@@ -44,13 +44,14 @@ AssetLoader::AssetLoader ()
 	_fs = new Filesystem ();
 	u32 indexSize = _fs->getFileSize ("index.data");
 	_index = (XML*) MemoryManager::instance ()->allocAsset (indexSize);
-	_fs->syncRead ("index.data", _index, indexSize);
+	//_fs->syncRead ("index.data", _index, indexSize);
 	_instance = const_cast<AssetLoader*> (this);
 }
 
 void* AssetLoader::loadAsset (const string &path)
 {
 	// will be finished after xml parser finished
+	return nullptr;
 }
 
 AssetLoader::~AssetLoader ()

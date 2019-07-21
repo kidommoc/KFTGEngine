@@ -2,6 +2,7 @@
 
 #include "types.hpp"
 #include "string.hpp"
+#include "Math.hpp"
 
 #define MAP_CAPACITY 2000
 
@@ -22,26 +23,26 @@ public:
 		delete[] _table;
 	}
 
-	T query (const string &k)
+	T* query (const string &k)
 	{
 		u32 h = hash (k) % MAP_CAPACITY;
 		if (_table[h].key == k)
-			return _table[h].value;
+			return &_table[h].value;
 
 		u16 i = 0;
 		while (++i)
 		{
 			if (_table[(h + i * i) % MAP_CAPACITY].key == k)
-				return _table[(h + i * i) % MAP_CAPACITY].value;
+				return &_table[(h + i * i) % MAP_CAPACITY].value;
 			if (_table[(h - i * i) % MAP_CAPACITY].key == k)
-				return _table[(h - i * i) % MAP_CAPACITY].value;
+				return &_table[(h - i * i) % MAP_CAPACITY].value;
 		}
 		return nullptr;
 	}
 
 	void add (const string &k, T t)
 	{
-		u32 h = hash (key) % MAP_CAPACITY;
+		u32 h = hash (k) % MAP_CAPACITY;
 		if (_table[h].key == "")
 		{
 			_table[h].key = k;

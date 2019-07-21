@@ -20,9 +20,9 @@ void XML::Node::setType (enum Type t)
 XML::Node* XML::Node::findChild (const string &childTag)
 {
 	if (type != Type::NORMAL)
-		return;
+		return nullptr;
 	if (childTag == "")
-		return;
+		return nullptr;
 	Node *tmp = firstChild;
 	while (tmp)
 	{
@@ -132,7 +132,7 @@ void XML::Node::removeChild (const string &tag)
 XML::Node::Attribute* XML::Node::findAttr (const string &key)
 {
 	if (key == "")
-		return;
+		return nullptr;
 	Attribute *tmp = attrs;
 	while (tmp)
 	{
