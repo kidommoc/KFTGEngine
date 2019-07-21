@@ -8,7 +8,7 @@ namespace KFTG
 class string
 {
 public:
-	string () = delete;
+	string () : len (0), str (nullptr) {}
 	string (const char *s);
 	string (const string &s);
 	~string ();
