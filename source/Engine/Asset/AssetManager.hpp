@@ -3,6 +3,7 @@
 #include "../Core/string.hpp"
 #include "../Core/types.hpp"
 #include "../Core/Module.hpp"
+#include "../Core/map.hpp"
 #include "AssetTypes.hpp"
 #include "Filesystem.hpp"
 
@@ -20,19 +21,21 @@ public:
 	void* queryAsset (const GUID &uid, u32 &size);
 	void addAsset (const GUID &uid, void *asset, u32 size);
 	void deleteAsset (GUID uid);
-	void updateAssetAddr (void *former, void *later);
 
 private:
 	struct Element
 	{
-		Element () : guid (""), asset (nullptr) {}
-		GUID guid;
+		Element () : asset (nullptr), size (0) {}
+		Element (void *a, u32 s) : asset (a), size (s) {}
+		Element (const Element &e) : asset (e.asset), size (e.size) {}
 		void *asset;
 		u32 size;
+
+		const Element& operator = (const Element &e)
+			{ asset = e.asset; size = e.size; }
 	};
 
-	u32 _tableUsed;
-	Element *_table;
+	map<Element> _registry;
 };
 
 class AssetLoader : public Singleton<AssetLoader>
