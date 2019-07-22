@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Core/Module.hpp"
+#include "../Core/Singleton.hpp"
 #include "../Core/string.hpp"
 #include "../Memory/Allocators.hpp"
 #include "../Core/types.hpp"

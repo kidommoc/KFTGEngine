@@ -2,8 +2,8 @@
 
 #include "../Core/string.hpp"
 #include "../Core/types.hpp"
-#include "../Core/Singleton.hpp"
 #include "../Core/Module.hpp"
+#include "../Core/Singleton.hpp"
 #include "../Core/map.hpp"
 #include "AssetTypes.hpp"
 #include "Filesystem.hpp"

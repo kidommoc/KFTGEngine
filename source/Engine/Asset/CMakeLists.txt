@@ -1,11 +1,20 @@
-add_library(Asset
+project (Asset)
+
+set(HEADERS
 	AssetManager.hpp
-	AssetManager.cpp
 	AssetTypes.hpp
-	AssetTypes.cpp
 	Filesystem.hpp
+)
+
+set(SOURCES
+	AssetManager.cpp
+	AssetTypes.cpp
 	Filesystem.cpp
 )
+
+add_library(Asset ${SOURCES} ${HEADERS})
+
+include_directories(. ../Core ../Memory)
 
 target_link_libraries(Asset
 	Core

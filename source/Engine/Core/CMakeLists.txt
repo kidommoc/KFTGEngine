@@ -1,16 +1,25 @@
 project(Core)
-add_library(Core
+
+set(HEADERS
+	map.hpp
 	Math.hpp
-	Math.cpp
 	Module.hpp
 	Root.hpp
-	Root.cpp
 	string.hpp
-	string.cpp
 	Time.hpp
-	Time.cpp
 	types.hpp
 )
+
+set(SOURCES
+	Math.cpp
+	Root.cpp
+	string.cpp
+	Time.cpp
+)
+
+add_library(Core ${SOURCES} ${HEADERS})
+
+include_directories(../Core ../Memory ../Asset)
 
 target_link_libraries(Core
 	Asset

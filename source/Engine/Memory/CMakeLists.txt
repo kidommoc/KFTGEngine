@@ -1,10 +1,18 @@
 project(Memory)
-add_library(Memory
-	MemoryManager.hpp
-	MemoryManager.cpp
+
+set(HEADERS
 	Allocators.hpp
-	Allocators.cpp
+	MemoryManager.hpp
 )
+
+set(SOURCES
+	Allocators.cpp
+	MemoryManager.cpp
+)
+
+add_library(Memory ${SOURCES} ${HEADERS})
+
+include_directories(. ../Core ../Asset)
 
 target_link_libraries(Memory
 	Asset

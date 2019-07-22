@@ -1,7 +1,6 @@
 #include <new>
 #include "AssetManager.hpp"
 #include "../Core/Math.hpp"
-#include "../Memory/Allocators.hpp"
 #include "../Memory/MemoryManager.hpp"
 
 namespace KFTG
@@ -44,7 +43,7 @@ AssetLoader::AssetLoader ()
 	_fs = new Filesystem ();
 	u32 indexSize = _fs->getFileSize ("index.data");
 	_index = (XML*) MemoryManager::instance ()->allocAsset (indexSize);
-	//_fs->syncRead ("index.data", _index, indexSize);
+	_fs->syncRead ("index.data", _index, indexSize);
 	_instance = const_cast<AssetLoader*> (this);
 }
 

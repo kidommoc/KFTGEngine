@@ -2,11 +2,12 @@
 
 #include "types.hpp"
 #include "Module.hpp"
+#include "Singleton.hpp"
 
 namespace KFTG
 {
 
-class Time : public LoopModule, protected Singleton<Time>
+class Time : public LoopModule, public Singleton<Time>
 {
 public:
 	Time () {}

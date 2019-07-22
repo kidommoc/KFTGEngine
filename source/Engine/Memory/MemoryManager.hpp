@@ -2,6 +2,7 @@
 
 #include "../Core/types.hpp"
 #include "../Core/Module.hpp"
+#include "../Core/Singleton.hpp"
 #include "Allocators.hpp"
 
 #define MEM_STACK_SIZE 104857600
