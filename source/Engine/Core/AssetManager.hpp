@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../Core/string.hpp"
-#include "../Core/types.hpp"
-#include "../Core/Module.hpp"
-#include "../Core/Singleton.hpp"
-#include "../Core/map.hpp"
+#include "string.hpp"
+#include "../Common/types.hpp"
+#include "../Common/Module.hpp"
+#include "../Common/Singleton.hpp"
+#include "map.hpp"
 #include "AssetTypes.hpp"
 #include "Filesystem.hpp"
 

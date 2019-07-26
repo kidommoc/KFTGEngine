@@ -1,27 +1,32 @@
 project(Core)
 
 set(HEADERS
+	AssetManager.hpp
+	AssetTypes.hpp
+	Filesystem.hpp
 	map.hpp
 	Math.hpp
-	Module.hpp
 	Root.hpp
 	string.hpp
 	Time.hpp
-	types.hpp
 )
 
 set(SOURCES
+	AssetManager.cpp
+	AssetTypes.cpp
+	Filesystem.cpp
 	Math.cpp
 	Root.cpp
 	string.cpp
 	Time.cpp
 )
 
-add_library(Core ${SOURCES} ${HEADERS})
-
-include_directories(../Core ../Memory ../Asset)
+add_library(Core
+	${SOURCES}
+	${HEADERS}
+)
 
 target_link_libraries(Core
-	Asset
+	Common
 	Memory
 )

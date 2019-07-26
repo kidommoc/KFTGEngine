@@ -1,8 +1,8 @@
 #pragma once
 
-#include "types.hpp"
-#include "Module.hpp"
-#include "Singleton.hpp"
+#include "../Common/types.hpp"
+#include "../Common/Module.hpp"
+#include "../Common/Singleton.hpp"
 
 namespace KFTG
 {

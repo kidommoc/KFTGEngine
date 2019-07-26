@@ -1,10 +1,10 @@
 #pragma once
 
-#include "../Core/Module.hpp"
-#include "../Core/Singleton.hpp"
-#include "../Core/string.hpp"
+#include "../Common/Module.hpp"
+#include "../Common/Singleton.hpp"
+#include "../Common/types.hpp"
+#include "string.hpp"
 #include "../Memory/Allocators.hpp"
-#include "../Core/types.hpp"
 
 #define ASYNC_TABLE_SIZE 1000
 

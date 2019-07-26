@@ -1,8 +1,8 @@
 #pragma once
 
-#include "../Core/types.hpp"
-#include "../Core/Module.hpp"
-#include "../Core/Singleton.hpp"
+#include "../Common/types.hpp"
+#include "../Common/Module.hpp"
+#include "../Common/Singleton.hpp"
 #include "Allocators.hpp"
 
 #define MEM_STACK_SIZE 104857600

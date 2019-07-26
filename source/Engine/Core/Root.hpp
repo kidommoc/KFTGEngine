@@ -1,9 +1,9 @@
 #pragma once
 
-#include "types.hpp"
+#include "../Common/types.hpp"
 #include "../Memory/MemoryManager.hpp"
 #include "Time.hpp"
-#include "../Asset/AssetManager.hpp"
+#include "AssetManager.hpp"
 
 namespace KFTG
 {

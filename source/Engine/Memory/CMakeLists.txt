@@ -12,9 +12,6 @@ set(SOURCES
 
 add_library(Memory ${SOURCES} ${HEADERS})
 
-include_directories(. ../Core ../Asset)
-
 target_link_libraries(Memory
-	Asset
-	Core
+	Common
 )

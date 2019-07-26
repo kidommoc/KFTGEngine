@@ -1,6 +1,6 @@
 #include <windows.h>
 #include "Filesystem.hpp"
-#include "../Core/Math.hpp"
+#include "Math.hpp"
 
 namespace KFTG
 {
