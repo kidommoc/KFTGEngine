@@ -1,4 +1,4 @@
-#include "../Core/Root.hpp"
+#include "Core/Root.hpp"
 
 int main ()
 {

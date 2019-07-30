@@ -21,7 +21,10 @@ public:
 		SHIFT,
 		CTRL,
 		ALT,
-		BACKSPACE
+		BACKSPACE,
+		HOME,
+		PgUp,
+		PgDn
 	};
 
 	InputManager () {}
@@ -30,8 +33,12 @@ public:
 	virtual void exit ();
 	virtual void loop ();
 
+	bool queryKeyPress (char key) { return _pressBuf[key]; }
+	bool queryKeyRelese (char key) { return _releaseBuf[key]; }
+
 private:
-	bool _inputBuf[KEY_NUM];
+	bool _pressBuf[KEY_NUM];
+	bool _releaseBuf[KEY_NUM];
 };
 
 }

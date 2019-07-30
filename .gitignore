@@ -1,4 +1,5 @@
 .vscode
 build/
+lab/
 build.bat
 buildengine.bat
