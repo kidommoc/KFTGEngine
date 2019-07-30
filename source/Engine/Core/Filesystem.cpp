@@ -9,13 +9,18 @@ Filesystem::Filesystem ()
 {
 	_tableAsync = new bool[ASYNC_TABLE_SIZE];
 	_pool = new PoolAllocator (sizeof (AsyncIOInfo), ASYNC_TABLE_SIZE);
-	_instance = const_cast<Filesystem*> (this);
 }
 
 Filesystem::~Filesystem ()
 {
 	delete[] _tableAsync;
 	delete _pool;
+}
+
+Filesystem* Filesystem::instance ()
+{
+	static Filesystem _instance;
+	return &_instance;
 }
 
 void Filesystem::touchFile (const string &path)

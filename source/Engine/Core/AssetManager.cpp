@@ -8,13 +8,10 @@ namespace KFTG
 
 // AssetRegistry
 
-AssetRegistry::AssetRegistry ()
+AssetRegistry* AssetRegistry::instance ()
 {
-	_instance = const_cast <AssetRegistry*> (this);
-}
-
-AssetRegistry::~AssetRegistry ()
-{
+	static AssetRegistry _instance;
+	return &_instance;
 }
 
 void* AssetRegistry::queryAsset (const GUID &uid, u32 &size)
@@ -40,23 +37,28 @@ void AssetRegistry::deleteAsset (GUID uid)
 AssetLoader::AssetLoader ()
 	: _assetRegistry (AssetRegistry::instance ())
 {
-	_fs = new Filesystem ();
+	_fs = Filesystem::instance ();
 	u32 indexSize = _fs->getFileSize ("index.data");
 	_index = (XML*) MemoryManager::instance ()->allocAsset (indexSize);
 	_fs->syncRead ("index.data", _index, indexSize);
-	_instance = const_cast<AssetLoader*> (this);
-}
-
-void* AssetLoader::loadAsset (const string &path)
-{
-	// will be finished after xml parser finished
-	return nullptr;
 }
 
 AssetLoader::~AssetLoader ()
 {
 	MemoryManager::instance ()->freeAsset (_index);
 	delete _fs;
+}
+
+AssetLoader* AssetLoader::instance ()
+{
+	static AssetLoader _instance;
+	return &_instance;
+}
+
+void* AssetLoader::loadAsset (const string &path)
+{
+	// will be finished after xml parser finished
+	return nullptr;
 }
 
 // RawAssetLoader
@@ -81,10 +83,16 @@ AssetPacker::~AssetPacker ()
 
 // AssetManager
 
+AssetManager* AssetManager::instance ()
+{
+	static AssetManager _instance;
+	return &_instance;
+}
+
 void AssetManager::init ()
 {
-	_assetRegistry = new AssetRegistry ();
-	_assetLoader = new AssetLoader ();
+	_assetRegistry = AssetRegistry::instance ();
+	_assetLoader = AssetLoader::instance ();
 	_assetLoader->loadAsset ("all.data");
 }
 

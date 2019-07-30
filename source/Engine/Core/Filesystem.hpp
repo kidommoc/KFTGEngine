@@ -11,7 +11,7 @@
 namespace KFTG
 {
 
-class Filesystem : public Singleton<Filesystem>
+class Filesystem : public Singleton
 {
 public:
 	struct AsyncIOInfo
@@ -24,7 +24,7 @@ public:
 		void (*finish) (Filesystem *fs, u32 index);
 	};
 
-	Filesystem ();
+	static Filesystem* instance ();
 	~Filesystem ();
 
 	void touchFile (const string &path);
@@ -40,6 +40,8 @@ public:
 	friend void writeThread (void *lpParam);
 
 private:
+	Filesystem ();
+
 	bool *_tableAsync;
 	PoolAllocator *_pool;
 };

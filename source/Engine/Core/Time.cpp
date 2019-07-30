@@ -4,6 +4,12 @@
 namespace KFTG
 {
 
+Time* Time::instance ()
+{
+	static Time _instance;
+	return &_instance;
+}
+
 void Time::init ()
 {
 	_currentTime = getTime ();
@@ -11,7 +17,6 @@ void Time::init ()
 	_prevFrameTime = _currentTime;
 	_totalTime = 0;
 	_isPause = false;
-	_instance = const_cast<Time*> (this);
 }
 
 void Time::loop ()

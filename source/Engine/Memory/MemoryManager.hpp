@@ -15,13 +15,13 @@
 namespace KFTG
 {
 
-class MemoryManager : public Module, public Singleton<MemoryManager>
+class MemoryManager : public Module, public Singleton
 {
 public:
-	MemoryManager () {}
+	static MemoryManager* instance ();
 	~MemoryManager () {}
-	virtual void init ();
-	virtual void exit ();
+	virtual void init () override;
+	virtual void exit () override;
 
 	void* allocScene (u32 size);
 	void* allocFrame (u32 size);
@@ -33,6 +33,8 @@ public:
 	void freePool (PoolAllocator& p);
 
 private:
+	MemoryManager () {}
+
 	StackAllocator *_stackAllocator;
 	HeapAllocator *_assetAllocator;
 	PoolAllocator *_XMLNodePool;

@@ -5,10 +5,10 @@ namespace KFTG
 
 Root::Root ()
 {
-	_memoryManager = new MemoryManager ();
-	_assetManager = new AssetManager ();
+	_memoryManager = MemoryManager::instance ();
+	_assetManager = AssetManager::instance ();
 	//others
-	_time = new Time ();
+	_time = Time::instance ();
 
 	_memoryManager->init ();
 	_assetManager->init ();

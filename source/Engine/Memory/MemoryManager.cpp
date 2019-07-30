@@ -5,6 +5,12 @@ namespace KFTG
 
 // MemoryManager
 
+MemoryManager* MemoryManager::instance ()
+{
+	static MemoryManager _instance;
+	return &_instance;
+}
+
 void MemoryManager::init ()
 {
 	_stackAllocatorSize = MEM_STACK_SIZE;
@@ -13,7 +19,6 @@ void MemoryManager::init ()
 	_assetAllocator = new HeapAllocator (_assetAllocatorSize);
 	_XMLNodePool = new PoolAllocator (XML_NODE_SIZE, XML_NODE_POOL_LEN);
 	_XMLAttrPool = new PoolAllocator (XML_ATTR_SIZE, XML_ATTR_POOL_LEN);
-	_instance = const_cast<MemoryManager*> (this);
 }
 
 void MemoryManager::exit ()

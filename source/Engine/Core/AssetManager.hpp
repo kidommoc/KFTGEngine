@@ -13,11 +13,11 @@
 namespace KFTG
 {
 
-class AssetRegistry : public Singleton<AssetRegistry>
+class AssetRegistry : public Singleton
 {
 public:
-	AssetRegistry ();
-	~AssetRegistry ();
+	static AssetRegistry* instance ();
+	~AssetRegistry () {}
 
 	void* queryAsset (const GUID &uid, u32 &size);
 	void addAsset (const GUID &uid, void *asset, u32 size);
@@ -36,13 +36,15 @@ private:
 			{ asset = e.asset; size = e.size; return *this; }
 	};
 
+	AssetRegistry () {}
+
 	map<Element> _registry;
 };
 
-class AssetLoader : public Singleton<AssetLoader>
+class AssetLoader : public Singleton
 {
 public:
-	AssetLoader ();
+	static AssetLoader* instance ();
 	~AssetLoader ();
 	// no need to divide data into multiple files temporarily
 	// only all.data for all of serialized assets
@@ -50,6 +52,8 @@ public:
 	void* loadAsset (const string &path);
 
 private:
+	AssetLoader ();
+
 	AssetRegistry *_assetRegistry;
 	Filesystem *_fs;
 	XML *_index;
@@ -77,16 +81,18 @@ public:
 private:
 };
 
-class AssetManager : public Module
+class AssetManager : public Module, public Singleton
 {
 public:
-	AssetManager () {}
+	static AssetManager* instance ();
 	~AssetManager () {}
 	virtual void init ();
 	virtual void exit ();
 	void* queryAsset (const string &guid, u32 &size);
 
 private:
+	AssetManager () {}
+
 	AssetLoader *_assetLoader;
 	AssetRegistry *_assetRegistry;
 };

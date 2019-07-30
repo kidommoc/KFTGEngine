@@ -7,13 +7,14 @@
 namespace KFTG
 {
 
-class Time : public LoopModule, public Singleton<Time>
+class Time : public LoopModule, public Singleton
 {
 public:
-	Time () {}
+	static Time* instance ();
 	virtual void init ();
 	virtual void exit () {}
 	virtual void loop ();
+
 	f32 getDeltaTime () const { return (_currentTime - _prevFrameTime) / 1000; }
 	u32 getDeltaTimeMilli () const { return _currentTime - _prevFrameTime; }
 	u64 getTotalTime () const { return _totalTime; }
@@ -21,6 +22,7 @@ public:
 	void unpause () { _isPause = false; }
 
 private:
+	Time () {}
 	u64 getTime ();
 
 	u64 _currentTime;
