@@ -18,4 +18,12 @@ typedef int32_t i32;
 // real
 typedef float f32;
 
+struct Color
+{
+	u8 red;
+	u8 green;
+	u8 blue;
+	u8 alpha;
+};
+
 }
