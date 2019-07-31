@@ -86,8 +86,8 @@ class AssetManager : public Module, public Singleton
 public:
 	static AssetManager* instance ();
 	~AssetManager () {}
-	virtual void init ();
-	virtual void exit ();
+	virtual void init () override;
+	virtual void exit () override;
 	void* queryAsset (const string &guid, u32 &size);
 
 private:

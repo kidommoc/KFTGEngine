@@ -11,9 +11,9 @@ class Time : public LoopModule, public Singleton
 {
 public:
 	static Time* instance ();
-	virtual void init ();
-	virtual void exit () {}
-	virtual void loop ();
+	virtual void init () override;
+	virtual void exit () override {}
+	virtual void loop () override;
 
 	f32 getDeltaTime () const { return (_currentTime - _prevFrameTime) / 1000; }
 	u32 getDeltaTimeMilli () const { return _currentTime - _prevFrameTime; }
