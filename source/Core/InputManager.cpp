@@ -3,6 +3,12 @@
 namespace KFTG
 {
 
+InputManager* InputManager::instance ()
+{
+	static InputManager _instance;
+	return &_instance;
+}
+
 void InputManager::init ()
 {
 }

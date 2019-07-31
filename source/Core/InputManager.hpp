@@ -9,7 +9,7 @@
 namespace KFTG
 {
 
-class InputManager : public LoopModule, public Singleton<InputManager>
+class InputManager : public LoopModule, public Singleton
 {
 public:
 	enum Keys
@@ -27,7 +27,7 @@ public:
 		PgDn
 	};
 
-	InputManager () {}
+	static InputManager* instance ();
 	~InputManager () {}
 	virtual void init ();
 	virtual void exit ();
@@ -37,6 +37,7 @@ public:
 	bool queryKeyRelese (char key) { return _releaseBuf[key]; }
 
 private:
+	InputManager () {}
 	bool _pressBuf[KEY_NUM];
 	bool _releaseBuf[KEY_NUM];
 };
