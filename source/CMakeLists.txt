@@ -20,8 +20,6 @@ else()
 	message("not found glfw")
 endif(glfw_LIB)
 
-message("${LIBS}")
-
 file(COPY ${LIBS} DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
 add_subdirectory(Common)

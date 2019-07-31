@@ -2,7 +2,7 @@
 
 #include "../Common/types.hpp"
 
-#define MEM_STACK_POOL_LEN 65535
+#define MEM_STACK_POOL_LEN 4000
 
 namespace KFTG
 {

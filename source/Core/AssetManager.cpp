@@ -40,7 +40,9 @@ AssetLoader::AssetLoader ()
 	_fs = Filesystem::instance ();
 	u32 indexSize = _fs->getFileSize ("index.data");
 	_index = (XML*) MemoryManager::instance ()->allocAsset (indexSize);
+#ifndef NODATA
 	_fs->syncRead ("index.data", _index, indexSize);
+#endif
 }
 
 AssetLoader::~AssetLoader ()
@@ -93,7 +95,9 @@ void AssetManager::init ()
 {
 	_assetRegistry = AssetRegistry::instance ();
 	_assetLoader = AssetLoader::instance ();
+#ifndef NODATA
 	_assetLoader->loadAsset ("all.data");
+#endif
 }
 
 void AssetManager::exit ()

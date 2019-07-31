@@ -27,6 +27,7 @@ Root::~Root ()
 void Root::loop ()
 {
 	_memoryManager->freeFrame ();
+	_time->loop ();
 }
 
 }

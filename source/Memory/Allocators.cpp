@@ -43,7 +43,7 @@ void PoolAllocator::init (u32 size, u32 len)
 	void **tmp = (void**) _next;
 	for (u32 i = 0; i < len; ++i)
 	{
-		*tmp = *tmp + size;
+		*tmp = (void**) (((char*) tmp) + size);
 		tmp = (void**) *tmp;
 	}
 }
