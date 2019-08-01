@@ -7,6 +7,7 @@
 #include "DisplayManager.hpp"
 #include "InputManager.hpp"
 #include "Time.hpp"
+#include "AudioManager.hpp"
 
 namespace KFTG
 {
@@ -30,6 +31,7 @@ private:
 	AssetManager *_assetManager;
 	DisplayManager *_displayManager;
 	InputManager *_inputManager;
+	AudioManager *_audioManager;
 	Time *_time;
 };
 

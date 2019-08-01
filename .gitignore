@@ -1,5 +1,6 @@
-.vscode
+.vscode/
 build/
 lab/
 build.bat
 buildengine.bat
+source/countlines.bat

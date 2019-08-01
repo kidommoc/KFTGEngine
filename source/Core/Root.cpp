@@ -10,6 +10,7 @@ Root::Root ()
 	_assetManager = AssetManager::instance ();
 	_displayManager = DisplayManager::instance ();
 	_inputManager = InputManager::instance ();
+	//_audioManager = AudioManager::instance ();
 	//others
 	_time = Time::instance ();
 
@@ -18,6 +19,7 @@ Root::Root ()
 	_assetManager->init ();
 	_displayManager->init ();
 	_inputManager->init ();
+	//_audioManager->init ();
 	//others
 	_time->init ();
 
@@ -32,6 +34,8 @@ Root::~Root ()
 {
 	_time->exit ();
 	// others
+	//_audioManager->exit ();
+	_inputManager->exit ();
 	_displayManager->exit ();
 	_assetManager->exit ();
 	_eventManager->exit ();
@@ -42,6 +46,7 @@ void Root::loop ()
 {
 	_memoryManager->freeFrame ();
 	_displayManager->loop ();
+	//_audioManager->loop ();
 	_time->loop ();
 }
 

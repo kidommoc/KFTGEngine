@@ -3,6 +3,7 @@ project(Core)
 set(HEADERS
 	AssetManager.hpp
 	AssetTypes.hpp
+	AudioManager.hpp
 	DisplayManager.hpp
 	EventManager.hpp
 	Filesystem.hpp
@@ -17,6 +18,7 @@ set(HEADERS
 set(SOURCES
 	AssetManager.cpp
 	AssetTypes.cpp
+	AudioManager.cpp
 	DisplayManager.cpp
 	EventManager.cpp
 	Filesystem.cpp
