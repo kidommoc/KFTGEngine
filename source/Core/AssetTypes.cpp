@@ -1,4 +1,5 @@
 #include "AssetTypes.hpp"
+#include "../Memory/MemoryManager.hpp"
 
 namespace KFTG
 {
@@ -8,12 +9,12 @@ void XML::Node::setType (enum Type t)
 	if (t == Type::NORMAL)
 	{
 		type = t;
-		// clear value
+		value = "";
 	}
 	else if (t == Type::VALUE)
 	{
 		type = t;
-		// clear children
+		clearChild ();
 	}
 }
 
@@ -117,7 +118,8 @@ void XML::Node::removeChild (Node *n)
 		n->nextSibling->prevSibling = n->prevSibling;
 	else
 		lastChild = n->prevSibling;
-	// delete n
+	n->clearChild ();
+	MemoryManager::instance ()->freeXMLNode (n);
 }
 
 void XML::Node::removeChild (const string &tag)
@@ -127,6 +129,12 @@ void XML::Node::removeChild (const string &tag)
 	if (tag == "")
 		return;
 	removeChild (findChild (tag));
+}
+
+void XML::Node::clearChild ()
+{
+	while (firstChild)
+		removeChild (firstChild);
 }
 
 XML::Node::Attribute* XML::Node::findAttr (const string &key)
@@ -165,7 +173,7 @@ void XML::Node::removeAttr (Attribute *attr)
 	if (!tmp->next)
 		return;
 	tmp->next = attr->next;
-	// delete attr;
+	MemoryManager::instance ()->freeXMLAttr (attr);
 }
 
 void XML::Node::removeAttr (const string &key)

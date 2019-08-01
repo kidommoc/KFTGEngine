@@ -17,6 +17,7 @@ struct Image
 
 struct Audio
 {
+	// TODO: audio struct
 };
 
 class XML
@@ -34,6 +35,7 @@ public:
 		};
 
 		void setType (enum Type t);
+
 		// NORMAL
 		Node* findChild (const string &childTag);
 		void insertFirst (Node *n);
@@ -44,6 +46,7 @@ public:
 		void insertAfter (Node *n, const string &after);
 		void removeChild (Node *n);
 		void removeChild (const string &tag);
+		void clearChild ();
 
 		Attribute* findAttr (const string &key);
 		void appendAttr (Attribute *attr);

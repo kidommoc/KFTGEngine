@@ -42,6 +42,16 @@ void* MemoryManager::allocAsset (u32 size)
 	return _assetAllocator->alloc (size);
 }
 
+void* MemoryManager::allocXMLNode ()
+{
+	return _XMLNodePool->alloc ();
+}
+
+void* MemoryManager::allocXMLAttr ()
+{
+	return _XMLAttrPool->alloc ();
+}
+
 void MemoryManager::freeScene ()
 {
 	_stackAllocator->freeLToMarker (0);
@@ -55,6 +65,16 @@ void MemoryManager::freeFrame ()
 void MemoryManager::freeAsset (void *p)
 {
 	_assetAllocator->free (p);
+}
+
+void MemoryManager::freeXMLNode (void *p)
+{
+	_XMLNodePool->free (p);
+}
+
+void MemoryManager::freeXMLAttr (void *p)
+{
+	_XMLAttrPool->free (p);
 }
 
 } //end namespace KFTG

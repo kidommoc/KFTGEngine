@@ -26,11 +26,13 @@ public:
 	void* allocScene (u32 size);
 	void* allocFrame (u32 size);
 	void* allocAsset (u32 size);
-	//PoolAllocator& allocPool (u32 size, u32 len);
+	void* allocXMLNode ();
+	void* allocXMLAttr ();
 	void freeScene ();
 	void freeFrame ();
 	void freeAsset (void *p);
-	void freePool (PoolAllocator& p);
+	void freeXMLNode (void *p);
+	void freeXMLAttr (void *p);
 
 private:
 	MemoryManager () {}
