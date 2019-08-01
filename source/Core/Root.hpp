@@ -5,6 +5,7 @@
 #include "Time.hpp"
 #include "AssetManager.hpp"
 #include "EventManager.hpp"
+#include "DisplayManager.hpp"
 
 namespace KFTG
 {
@@ -25,6 +26,7 @@ private:
 	//Modules
 	MemoryManager *_memoryManager;
 	EventManager *_eventManager;
+	DisplayManager *_displayManager;
 	Time *_time;
 	AssetManager *_assetManager;
 };
