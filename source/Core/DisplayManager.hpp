@@ -15,9 +15,9 @@ class DisplayManager : public LoopModule, public Singleton
 public:
 	static DisplayManager* instance ();
 	~DisplayManager () {}
-	virtual void init ();
-	virtual void exit ();
-	virtual void loop ();
+	virtual void init () override;
+	virtual void exit () override;
+	virtual void loop () override;
 
 	GLFWwindow* getWindowHandle () { return _window; }
 

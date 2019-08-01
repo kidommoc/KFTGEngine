@@ -38,6 +38,9 @@ void EventManager::exit ()
 
 void EventManager::registerEvent (enum Event eventType, EventListener *listener)
 {
+	for (u32 i = 0; i < _listenerCount[eventType]; ++i)
+		if (_listeners[eventType][i] == listener)
+			return;
 	if (_listenerCount[eventType] < EVENT_NUM)
 	{
 		_listeners[eventType][_listenerCount[eventType]] = listener;
