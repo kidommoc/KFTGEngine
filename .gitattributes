@@ -1,4 +1,2 @@
-design/ linguist-detectable=false
-include/ linguist-detectable=false
-lib/ linguist-detectable=false
-source/ linguist-detectable=true
+include/* linguist-vendored
+source/* linguist-detectable=true
