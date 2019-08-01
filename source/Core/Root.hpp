@@ -2,10 +2,11 @@
 
 #include "../Common/types.hpp"
 #include "../Memory/MemoryManager.hpp"
-#include "Time.hpp"
-#include "AssetManager.hpp"
 #include "EventManager.hpp"
+#include "AssetManager.hpp"
 #include "DisplayManager.hpp"
+#include "InputManager.hpp"
+#include "Time.hpp"
 
 namespace KFTG
 {
@@ -26,9 +27,10 @@ private:
 	//Modules
 	MemoryManager *_memoryManager;
 	EventManager *_eventManager;
-	DisplayManager *_displayManager;
-	Time *_time;
 	AssetManager *_assetManager;
+	DisplayManager *_displayManager;
+	InputManager *_inputManager;
+	Time *_time;
 };
 
 }

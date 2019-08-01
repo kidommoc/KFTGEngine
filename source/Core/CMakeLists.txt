@@ -6,6 +6,7 @@ set(HEADERS
 	DisplayManager.hpp
 	EventManager.hpp
 	Filesystem.hpp
+	InputManager.hpp
 	map.hpp
 	Math.hpp
 	Root.hpp
@@ -19,6 +20,7 @@ set(SOURCES
 	DisplayManager.cpp
 	EventManager.cpp
 	Filesystem.cpp
+	InputManager.cpp
 	Math.cpp
 	Root.cpp
 	string.cpp

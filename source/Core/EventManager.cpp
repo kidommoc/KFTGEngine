@@ -8,6 +8,16 @@ void QuitGameListener::callback (void *param)
 	setQuit ();
 }
 
+void KeyPressListener::callback (void *param)
+{
+	whenKeyPress (*((u32*)param));
+}
+
+void KeyReleaseListener::callback (void *param)
+{
+	whenKeyRelease (*((u32*)param));
+}
+
 // EventManager
 
 EventManager* EventManager::instance ()
@@ -49,8 +59,8 @@ void EventManager::unregisterEvent (enum Event eventType, EventListener *listene
 
 void EventManager::fireEvent (enum Event eventType, void *param)
 {
-	for (EventListener *el : _listeners[eventType])
-		el->callback (param);
+	for (u32 i = 0; i < _listenerCount[eventType]; ++i)
+		_listeners[eventType][i]->callback (param);
 }
 
 }

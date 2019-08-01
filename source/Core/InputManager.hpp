@@ -3,43 +3,36 @@
 #include <windows.h>
 #include "../Common/Module.hpp"
 #include "../Common/Singleton.hpp"
+#include "EventManager.hpp"
 
 #define KEY_NUM 150
 
 namespace KFTG
 {
 
-class InputManager : public LoopModule, public Singleton
+class InputManager : public LoopModule, public Singleton,
+	public KeyPressListener, public KeyReleaseListener
 {
 public:
-	enum Keys
-	{
-		ARROW_UP = 128,
-		ARROW_DOWN,
-		ARROW_LEFT,
-		ARROW_RIGHT,
-		SHIFT,
-		CTRL,
-		ALT,
-		BACKSPACE,
-		HOME,
-		PgUp,
-		PgDn
-	};
-
 	static InputManager* instance ();
 	~InputManager () {}
 	virtual void init ();
 	virtual void exit ();
 	virtual void loop ();
 
-	bool queryKeyPress (char key) { return _pressBuf[key]; }
-	bool queryKeyRelese (char key) { return _releaseBuf[key]; }
+	virtual void whenKeyPress (u32 key) override;
+	virtual void whenKeyRelease (u32 key) override;
+
+	bool queryKeyPress (char key) const { return _pressBuf[key]; }
+	bool queryKeyRelese (char key) const { return _releaseBuf[key]; }
 
 private:
 	InputManager () {}
+
 	bool _pressBuf[KEY_NUM];
+	bool _pressSyncBuf[KEY_NUM];
 	bool _releaseBuf[KEY_NUM];
+	bool _releaseSyncBuf[KEY_NUM];
 };
 
 }
