@@ -4,11 +4,12 @@
 #include "../Memory/MemoryManager.hpp"
 #include "Time.hpp"
 #include "AssetManager.hpp"
+#include "EventManager.hpp"
 
 namespace KFTG
 {
 
-class Root
+class Root : public QuitGameListener
 {
 public:
 	Root ();
@@ -16,13 +17,14 @@ public:
 
 	void loop ();
 	bool isQuit () { return _isQuit; }
-	void setQuit () { _isQuit = true; }
+	virtual void setQuit () override { _isQuit = true; }
 
 private:
 	bool _isQuit;
 
 	//Modules
 	MemoryManager *_memoryManager;
+	EventManager *_eventManager;
 	Time *_time;
 	AssetManager *_assetManager;
 };

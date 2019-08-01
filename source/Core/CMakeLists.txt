@@ -3,6 +3,7 @@ project(Core)
 set(HEADERS
 	AssetManager.hpp
 	AssetTypes.hpp
+	EventManager.hpp
 	Filesystem.hpp
 	map.hpp
 	Math.hpp
@@ -14,6 +15,7 @@ set(HEADERS
 set(SOURCES
 	AssetManager.cpp
 	AssetTypes.cpp
+	EventManager.cpp
 	Filesystem.cpp
 	Math.cpp
 	Root.cpp
