@@ -24,6 +24,7 @@ PoolAllocator::~PoolAllocator ()
 
 void* PoolAllocator::alloc ()
 {
+	// TODO: error handling
 	void *tmp = _next;
 	_next = *((void**) _next);
 	return tmp;
@@ -71,7 +72,7 @@ HeapAllocator::~HeapAllocator ()
 void* HeapAllocator::alloc (u32 size)
 {
 	if (size == 0)
-		return nullptr;
+		return nullptr; // TODO: error handling
 	BlockNode *tmp = _blockNodes;
 	while (tmp)
 	{
@@ -157,9 +158,9 @@ StackAllocator::~StackAllocator ()
 void* StackAllocator::allocL (u32 size)
 {
 	if (size == 0)
-		return nullptr;
+		return nullptr; // TODO: error handling
 	if (size > _markerH - _markerL)
-		return nullptr;
+		return nullptr; // TODO: error handling
 	void *tmp = _mem + _markerL;
 	_markerL += size;
 	return tmp;
@@ -168,9 +169,9 @@ void* StackAllocator::allocL (u32 size)
 void* StackAllocator::allocH (u32 size)
 {
 	if (size == 0)
-		return nullptr;
+		return nullptr; // TODO: error handling
 	if (size > _markerH - _markerL)
-		return nullptr;
+		return nullptr; // TODO: error handling
 	void *tmp = _mem + _markerH - size;
 	_markerH -= size;
 	return tmp;

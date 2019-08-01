@@ -24,15 +24,14 @@ void DisplayManager::init ()
 	_windowWidth = 1280;
 	_windowHeight = 720;
 #ifndef NODATA
-	// get window name from data
-	_windowName = "test";
+	// TODO: get window name from data
 #else
 	_windowName = "test";
 #endif
 	_window = glfwCreateWindow (_windowWidth, _windowHeight,
 		_windowName.getCStr (), nullptr, nullptr);
 	if (!_window)
-		return;
+		return; // TODO: error handling
 	glfwMakeContextCurrent (_window);	
 
 	glewExperimental = GL_TRUE;
@@ -53,6 +52,7 @@ void DisplayManager::loop ()
 	if (glfwWindowShouldClose (_window))
 		EventManager::instance ()->fireEvent (Event::QuitGame, nullptr);
 	glfwPollEvents ();
+	// draw
 	glfwSwapBuffers (_window);
 }
 

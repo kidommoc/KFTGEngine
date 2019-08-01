@@ -1,5 +1,4 @@
 #include "Root.hpp"
-#include <iostream>
 
 namespace KFTG
 {

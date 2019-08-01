@@ -12,6 +12,7 @@ namespace KFTG
 
 enum Event
 {
+	// TODO: more event
 	QuitGame
 };
 
@@ -28,6 +29,8 @@ public:
 
 	virtual void setQuit () = 0;
 };
+
+// TODO: more event listener
 
 class EventManager : public Module, public Singleton
 {

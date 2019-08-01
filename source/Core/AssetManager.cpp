@@ -57,6 +57,8 @@ AssetLoader* AssetLoader::instance ()
 	return &_instance;
 }
 
+// TODO: load asset from data files
+
 void* AssetLoader::loadAsset (const string &path)
 {
 	// will be finished after xml parser finished
@@ -64,6 +66,7 @@ void* AssetLoader::loadAsset (const string &path)
 }
 
 // RawAssetLoader
+// TODO: load asset from raw asset files
 
 RawAssetLoader::RawAssetLoader ()
 {
@@ -74,6 +77,7 @@ RawAssetLoader::~RawAssetLoader ()
 }
 
 // AssetPacker
+// TODO: Pack cooked assets into data files
 
 AssetPacker::AssetPacker ()
 {

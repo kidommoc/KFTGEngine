@@ -45,6 +45,7 @@ void Filesystem::syncRead (const string &path, void *buf, u32 size)
 		NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	u32 bytesRead;
 	ReadFile (hFile, buf, size, (LPDWORD) &bytesRead, NULL);
+	// TODO: error handling
 	CloseHandle (hFile);
 }
 
@@ -54,6 +55,7 @@ void Filesystem::syncWrite (const string &path, void *content, u32 size)
 		NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	u32 bytesWritten;
 	WriteFile (hFile, content, size, (LPDWORD) &bytesWritten, NULL);
+	// TODO: error handling
 	CloseHandle (hFile);
 }
 
@@ -113,6 +115,7 @@ void readThread (LPVOID lpParam)
 		NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	u32 bytesRead;
 	ReadFile (hFile, info->buf, info->size, (LPDWORD) &bytesRead, NULL);
+	// TODO: error handling
 	CloseHandle (hFile);
 	info->finish (info->fs, info->index);
 }
@@ -124,6 +127,7 @@ void writeThread (LPVOID lpParam)
 		NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
 	u32 bytesWritten;
 	WriteFile (hFile, info->buf, info->size, (LPDWORD) &bytesWritten, NULL);
+	// TODO: error handling
 	CloseHandle (hFile);
 	info->finish (info->fs, info->index);
 }
