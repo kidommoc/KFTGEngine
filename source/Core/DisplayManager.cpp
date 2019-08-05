@@ -1,5 +1,6 @@
 #include "DisplayManager.hpp"
 #include "EventManager.hpp"
+#include "../Memory/MemoryManager.hpp"
 #include <windows.h>
 
 namespace KFTG
@@ -68,12 +69,12 @@ void DisplayManager::init ()
 	glfwWindowHint (GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	_windowWidth = 1280;
-	_windowHeight = 720;
 #ifndef NODATA
-	// TODO: get window name from data
+	// TODO: get window name and size from data
 #else
 	_windowName = "test";
+	_windowWidth = 1280;
+	_windowHeight = 720;
 #endif
 	_window = glfwCreateWindow (_windowWidth, _windowHeight,
 		_windowName.getCStr (), nullptr, nullptr);
@@ -89,6 +90,57 @@ void DisplayManager::init ()
 	glViewport (0, 0, _bufWidth, _bufHeight);
 
 	glfwSetKeyCallback (_window, keycb);
+
+	_canvas = (Image*) MemoryManager::instance ()->allocAsset
+		(sizeof (Image) + _windowWidth * _windowHeight * sizeof (Color));
+	_canvas->width = _windowWidth;
+	_canvas->height = _windowHeight;
+	clearCanvas ();
+
+	GLuint texture;
+	glGenTextures (1, &texture);
+	glBindTexture (GL_TEXTURE_2D, texture);
+	glTexParameteri (GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+	glBindTexture (GL_TEXTURE_2D, 0);
+
+	GLfloat vertices[] = {
+		 1.0f,  1.0f, 0.0f,  1.0f, 1.0f, 1.0f,	 1.0f, 1.0f,
+		 1.0f, -1.0f, 0.0f,  1.0f, 1.0f, 1.0f,	 1.0f, 0.0f,
+		-1.0f, -1.0f, 0.0f,  1.0f, 1.0f, 1.0f,	 0.0f, 0.0f,
+		-1.0f,  1.0f, 0.0f,  1.0f, 1.0f, 1.0f,	 0.0f, 1.0f
+	};
+	_vertices = new GLfloat[32];
+	memcpy (_vertices, vertices, 32 * sizeof (GLfloat));
+
+	GLuint indices[] = {
+		0, 1, 3,
+		1, 2, 3
+	};
+	_indices = new GLuint[6];
+	memcpy (_indices, indices, 6 * sizeof (GLuint));
+
+	glGenBuffers (1, &_VBO);
+	glGenVertexArrays (1, &_VAO);
+	glGenBuffers (1, &_EBO);
+
+	glBindVertexArray (_VAO);
+	glBindBuffer (GL_ARRAY_BUFFER, _VBO);
+	glBufferData (GL_ARRAY_BUFFER, sizeof (vertices), vertices, GL_STATIC_DRAW);
+	glBindBuffer (GL_ELEMENT_ARRAY_BUFFER, _EBO);
+	glBufferData (GL_ELEMENT_ARRAY_BUFFER, 32 * sizeof (GLfloat), _indices,
+		GL_STATIC_DRAW);
+	glVertexAttribPointer (0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof (GLfloat),
+		(GLvoid*) 0);
+	glEnableVertexAttribArray (0);
+	glVertexAttribPointer (1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof (GLfloat),
+		(GLvoid*) (3 * sizeof (GLfloat)));
+	glEnableVertexAttribArray (1);
+	glVertexAttribPointer (2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof (GLfloat),
+		(GLvoid*) (6 * sizeof (GLfloat)));
+	glEnableVertexAttribArray (2);
+	glBindVertexArray (0);
+
+	initShaderProgram ();
 }
 
 void DisplayManager::exit ()
@@ -101,8 +153,105 @@ void DisplayManager::loop ()
 	if (glfwWindowShouldClose (_window))
 		EventManager::instance ()->fireEvent (Event::QuitGame, nullptr);
 	glfwPollEvents ();
+	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
+	glClear (GL_COLOR_BUFFER_BIT);
+
 	// draw
+	glBindTexture (GL_TEXTURE_2D, _texture);
+	glTexImage2D (GL_TEXTURE_2D, 0, GL_RGBA, _canvas->width, _canvas->height, 0,
+		GL_RGBA, GL_UNSIGNED_BYTE, _canvas);
+	glGenerateMipmap (GL_TEXTURE_2D);
+	glUseProgram (_shaderProgram);
+	glBindVertexArray (_VAO);
+	glDrawElements (GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+	glBindVertexArray (0);
+	glBindTexture (GL_TEXTURE_2D, 0);
+
 	glfwSwapBuffers (_window);
+	clearCanvas ();
+}
+
+void DisplayManager::initShaderProgram ()
+{
+	// vertex shader
+
+	const char *vertexShaderCode = "\
+	#version 330 core\n\
+	layout (location = 0) in vec3 position;\
+	layout (location = 1) in vec3 color;\
+	layout (location = 2) in vec2 texCoord;\
+	uniform float horizontalOffset;\
+	out vec4 vertexColor;\
+	out vec2 TexCoord;\
+	void main ()\
+	{\
+		gl_Position = vec4 (position.x + horizontalOffset, position.y, position.z, 1.0f);\
+		vertexColor = vec4 (color, 1.0f);\
+		TexCoord = vec2 (texCoord.x, 1.0f - texCoord.y);\
+	}\
+	";
+	GLuint vertexShader = glCreateShader (GL_VERTEX_SHADER);
+	glShaderSource (vertexShader, 1, &vertexShaderCode, NULL);
+	glCompileShader (vertexShader);
+	GLint vertexShaderSuccess;
+	GLchar infoLog[512];
+	glGetShaderiv (vertexShader, GL_COMPILE_STATUS, &vertexShaderSuccess);
+	if (!vertexShaderSuccess)
+	{
+		glGetShaderInfoLog (vertexShader, 512, NULL, infoLog);
+		//std::cout << "Vertex shader compilation failed!" << std::endl
+		//	<< infoLog << std::endl;
+	}
+
+	// fragment shader
+	
+	const char *fragmentShaderCode = "\
+	#version 330 core\n\
+	in vec4 vertexColor;\
+	in vec2 TexCoord;\
+	out vec4 color;\
+	uniform sampler2D Texture;\
+	void main ()\
+	{\
+		color = texture (Texture, TexCoord);\
+	}\
+	";
+	GLuint fragmentShader = glCreateShader (GL_FRAGMENT_SHADER);
+	glShaderSource (fragmentShader, 1, &fragmentShaderCode, NULL);
+	glCompileShader (fragmentShader);
+	GLint fragmentShaderSuccess;
+	glGetShaderiv (fragmentShader, GL_COMPILE_STATUS, &fragmentShaderSuccess);
+	if (!fragmentShaderSuccess)
+	{
+		glGetShaderInfoLog (vertexShader, 512, NULL, infoLog);
+		//std::cout << "Fragment shader compilation failed!" << std::endl
+		//	<< infoLog << std::endl;
+	}
+
+	// shader program
+
+	_shaderProgram = glCreateProgram ();
+	glAttachShader (_shaderProgram, vertexShader);
+	glAttachShader (_shaderProgram, fragmentShader);
+	glLinkProgram (_shaderProgram);
+	GLint shaderProgramSuccess;
+	glGetProgramiv (_shaderProgram, GL_LINK_STATUS, &shaderProgramSuccess);
+	if (!shaderProgramSuccess)
+	{
+		glGetProgramInfoLog (_shaderProgram, 512, NULL, infoLog);
+		//std::cout << "Shader program linking failed!" << std::endl
+		//	<< infoLog << std::endl;
+	}
+
+	glDeleteShader (vertexShader);
+	glDeleteShader (fragmentShader);
+}
+
+void DisplayManager::clearCanvas ()
+{
+	for (int i = 0; i < _canvas->height; ++i)
+		for (int j = 0; j < _canvas->width; ++j)
+			_canvas->image[i * _canvas->width + j] = Color (0, 0, 0, 255);
 }
 
 }

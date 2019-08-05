@@ -6,6 +6,7 @@
 #include "../Common/Singleton.hpp"
 #include "../Common/types.hpp"
 #include "string.hpp"
+#include "AssetTypes.hpp"
 
 namespace KFTG
 {
@@ -19,17 +20,30 @@ public:
 	virtual void exit () override;
 	virtual void loop () override;
 
-	GLFWwindow* getWindowHandle () { return _window; }
+	GLFWwindow* getWindowHandle () const { return _window; }
+	void drawImg (const Image *img, u32 x, u32 y, float scale);
+	//void drawText (const string &str, u32 x, u32 y, u16 typeSize);
 
 private:
 	DisplayManager () {}
+	void initShaderProgram ();
+	void clearCanvas ();
 
 	GLFWwindow *_window;
+	string _windowName;
 	u32 _windowWidth;
 	u32 _windowHeight;
 	u32 _bufWidth;
 	u32 _bufHeight;
-	string _windowName;
+	Image *_canvas;
+
+	GLfloat *_vertices;
+	GLuint *_indices;
+	GLuint _texture;
+	GLuint _VBO;
+	GLuint _VAO;
+	GLuint _EBO;
+	GLuint _shaderProgram;
 };
 
 }
