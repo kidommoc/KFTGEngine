@@ -26,8 +26,8 @@ public:
 	string& operator += (const char c);
 	string& operator += (const char *s);
 	string& operator += (const string &s);
-	char& operator [] (u32 i) { return str[i]; }
-	char operator [] (u32 i) const { return str[i]; }
+	char& operator [] (u32 i);
+	char operator [] (u32 i) const;
 	string& operator + (const char c) const;
 	string& operator + (const char *s) const;
 	string& operator + (const string &s) const;

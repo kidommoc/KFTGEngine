@@ -5,8 +5,8 @@
 #include "../Common/Singleton.hpp"
 #include "Allocators.hpp"
 
-#define MEM_STACK_SIZE 104857600
-#define MEM_HEAP_SIZE 104857600
+#define MEM_STACK_SIZE 1048576
+#define MEM_HEAP_SIZE 10485760000
 #define XML_NODE_SIZE 88
 #define XML_NODE_POOL_LEN 3000
 #define XML_ATTR_SIZE 40

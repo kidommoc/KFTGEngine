@@ -138,6 +138,27 @@ string& string::operator+= (const string &s)
 	return *this;
 }
 
+char& string::operator [] (u32 i)
+{
+	if (i >= 0 && i < len)
+		return str[i];
+	else
+	{
+		// TODO: error handling
+		char c = 0;
+		return c;
+	}
+}
+
+char string::operator [] (u32 i) const
+{
+	if (i >= 0 && i < len)
+		return str[i];
+	else
+		// TODO: error handling
+		return 0;
+}
+
 string& string::operator + (const char c) const
 {
 	string tmp (*this);

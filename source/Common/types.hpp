@@ -20,6 +20,11 @@ typedef float f32;
 
 struct Color
 {
+	Color () : Color (0, 0, 0, 255) {}
+	Color (u8 r, u8 g, u8 b, u8 a)
+		: red (r), green (g), blue (b), alpha (a)
+	{}
+
 	u8 red;
 	u8 green;
 	u8 blue;

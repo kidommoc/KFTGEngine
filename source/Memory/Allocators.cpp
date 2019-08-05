@@ -99,7 +99,7 @@ void* HeapAllocator::alloc (u32 size)
 		_pool.free (tmp);
 		return tmp->p;
 	}
-	return nullptr;
+	return nullptr; // TODO: error handling
 }
 
 void HeapAllocator::free (void *p)
