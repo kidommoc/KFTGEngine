@@ -180,12 +180,11 @@ void DisplayManager::initShaderProgram ()
 	layout (location = 0) in vec3 position;\
 	layout (location = 1) in vec3 color;\
 	layout (location = 2) in vec2 texCoord;\
-	uniform float horizontalOffset;\
 	out vec4 vertexColor;\
 	out vec2 TexCoord;\
 	void main ()\
 	{\
-		gl_Position = vec4 (position.x + horizontalOffset, position.y, position.z, 1.0f);\
+		gl_Position = vec4 (position.x, position.y, position.z, 1.0f);\
 		vertexColor = vec4 (color, 1.0f);\
 		TexCoord = vec2 (texCoord.x, 1.0f - texCoord.y);\
 	}\
