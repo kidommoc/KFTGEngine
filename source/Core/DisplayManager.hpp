@@ -21,7 +21,7 @@ public:
 	virtual void loop () override;
 
 	GLFWwindow* getWindowHandle () const { return _window; }
-	void drawImg (const Image *img, u32 x, u32 y, float scale);
+	void drawImg (const Image *img, u32 x, u32 y, f32 scale);
 	//void drawText (const string &str, u32 x, u32 y, u16 typeSize);
 
 private:
