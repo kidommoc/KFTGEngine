@@ -19,4 +19,30 @@ u32 hash (const string &key)
 	return h;
 }
 
+Vec2& Vec2::operator + (Vec2 &other)
+{
+	Vec2 v (x + other.x, y + other.y);
+	return v;
+}
+
+Vec2& Vec2::operator += (Vec2 &other)
+{
+	x += other.x;
+	y += other.y;
+	return *this;
+}
+
+Vec2& Vec2::operator - (Vec2 &other)
+{
+	Vec2 v (x - other.x, y - other.y);
+	return v;
+}
+
+Vec2& Vec2::operator -= (Vec2 &other)
+{
+	x -= other.x;
+	y -= other.y;
+	return *this;
+}
+
 }
