@@ -1,3 +1,5 @@
+project(Core)
+
 set(HEADERS
 	map.hpp
 	Math.hpp
