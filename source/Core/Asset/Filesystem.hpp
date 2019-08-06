@@ -1,10 +1,10 @@
 #ifndef KFTG_FILESYSTEM
 #define KFTG_FILESYSTEM
 
-#include "../Common/Module.hpp"
-#include "../Common/Singleton.hpp"
-#include "../Common/types.hpp"
-#include "string.hpp"
+#include "../Module.hpp"
+#include "../Singleton.hpp"
+#include "../types.hpp"
+#include "../string.hpp"
 #include "../Memory/Allocators.hpp"
 
 #define ASYNC_TABLE_SIZE 1000

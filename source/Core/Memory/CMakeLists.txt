@@ -13,5 +13,5 @@ set(SOURCES
 add_library(Memory ${SOURCES} ${HEADERS})
 
 target_link_libraries(Memory
-	Common
+	Core
 )

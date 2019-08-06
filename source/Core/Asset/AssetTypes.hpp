@@ -1,8 +1,8 @@
 #ifndef KFTG_ASSET_TYPES
 #define KFTG_ASSET_TYPES
 
-#include "string.hpp"
-#include "../Common/types.hpp"
+#include "../types.hpp"
+#include "../string.hpp"
 
 namespace KFTG
 {

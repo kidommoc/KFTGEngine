@@ -1,9 +1,9 @@
 #ifndef KFTG_TIME
 #define KFTG_TIME
 
-#include "../Common/types.hpp"
-#include "../Common/Module.hpp"
-#include "../Common/Singleton.hpp"
+#include "../types.hpp"
+#include "../Module.hpp"
+#include "../Singleton.hpp"
 
 namespace KFTG
 {

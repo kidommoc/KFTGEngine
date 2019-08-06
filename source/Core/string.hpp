@@ -1,7 +1,7 @@
 #ifndef KFTG_STRING
 #define KFTG_STRING
 
-#include "../Common/types.hpp"
+#include "types.hpp"
 
 namespace KFTG
 {

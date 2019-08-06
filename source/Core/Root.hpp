@@ -1,14 +1,14 @@
 #ifndef KFTG_ROOT
 #define KFTG_ROOT
 
-#include "../Common/types.hpp"
-#include "../Memory/MemoryManager.hpp"
-#include "EventManager.hpp"
-#include "AssetManager.hpp"
-#include "DisplayManager.hpp"
-#include "InputManager.hpp"
-#include "Time.hpp"
-#include "AudioManager.hpp"
+#include "types.hpp"
+#include "Memory/MemoryManager.hpp"
+#include "Event/EventManager.hpp"
+#include "Asset/AssetManager.hpp"
+#include "Display/DisplayManager.hpp"
+#include "Event/InputManager.hpp"
+#include "Time/Time.hpp"
+#include "Audio/AudioManager.hpp"
 
 namespace KFTG
 {

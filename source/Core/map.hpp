@@ -1,7 +1,7 @@
 #ifndef KFTG_MAP
 #define KFTG_MAP
 
-#include "../Common/types.hpp"
+#include "types.hpp"
 #include "string.hpp"
 #include "Math.hpp"
 

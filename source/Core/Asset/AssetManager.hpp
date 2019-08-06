@@ -1,12 +1,12 @@
 #ifndef KFTG_ASSET_MANAGER
 #define KFTG_ASSET_MANAGER
 
-#include "string.hpp"
-#include "../Common/types.hpp"
-#include "../Common/Module.hpp"
-#include "../Common/Singleton.hpp"
-#include "map.hpp"
-#include "AssetTypes.hpp"
+#include "../types.hpp"
+#include "../Module.hpp"
+#include "../Singleton.hpp"
+#include "../string.hpp"
+#include "../map.hpp"
+#include "../Asset/AssetTypes.hpp"
 #include "Filesystem.hpp"
 
 #define ASSET_TABLE_SIZE 2000

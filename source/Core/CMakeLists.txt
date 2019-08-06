@@ -1,40 +1,35 @@
-project(Core)
-
 set(HEADERS
-	AssetManager.hpp
-	AssetTypes.hpp
-	AudioManager.hpp
-	DisplayManager.hpp
-	EventManager.hpp
-	Filesystem.hpp
-	InputManager.hpp
 	map.hpp
 	Math.hpp
 	Root.hpp
+	Singleton.hpp
 	string.hpp
-	Time.hpp
+	types.hpp
 )
 
 set(SOURCES
-	AssetManager.cpp
-	AssetTypes.cpp
-	AudioManager.cpp
-	DisplayManager.cpp
-	EventManager.cpp
-	Filesystem.cpp
-	InputManager.cpp
 	Math.cpp
 	Root.cpp
 	string.cpp
-	Time.cpp
 )
 
 add_library(Core
-	${SOURCES}
 	${HEADERS}
+	${SOURCES}
 )
 
+add_subdirectory(Asset)
+add_subdirectory(Audio)
+add_subdirectory(Display)
+add_subdirectory(Event)
+add_subdirectory(Memory)
+add_subdirectory(Time)
+
 target_link_libraries(Core
-	Common
+	Asset
+	Audio
+	Display
+	Event
 	Memory
+	Time
 )

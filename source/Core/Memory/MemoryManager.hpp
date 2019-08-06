@@ -1,9 +1,9 @@
 #ifndef KFTG_MEMORY_MANAGER
 #define KFTG_MEMORY_MANAGER
 
-#include "../Common/types.hpp"
-#include "../Common/Module.hpp"
-#include "../Common/Singleton.hpp"
+#include "../types.hpp"
+#include "../Module.hpp"
+#include "../Singleton.hpp"
 #include "Allocators.hpp"
 
 #define MEM_STACK_SIZE 1048576

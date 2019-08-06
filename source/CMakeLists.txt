@@ -22,12 +22,8 @@ endif(glfw_LIB)
 
 file(COPY ${LIBS} DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
-add_subdirectory(Common)
 add_subdirectory(Core)
-add_subdirectory(Memory)
 
 target_link_libraries(${GAME_NAME}
-	Common
-	Memory
 	Core
 )

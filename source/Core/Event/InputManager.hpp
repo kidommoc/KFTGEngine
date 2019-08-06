@@ -2,8 +2,8 @@
 #define KFTG_INPUT_MANAGER
 
 #include <windows.h>
-#include "../Common/Module.hpp"
-#include "../Common/Singleton.hpp"
+#include "../Module.hpp"
+#include "../Singleton.hpp"
 #include "EventManager.hpp"
 
 #define KEY_NUM 150

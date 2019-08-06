@@ -1,9 +1,9 @@
 #ifndef KFTG_EVENT_MANAGER
 #define KFTG_EVENT_MANAGER
 
-#include "../Common/types.hpp"
-#include "../Common/Module.hpp"
-#include "../Common/Singleton.hpp"
+#include "../types.hpp"
+#include "../Module.hpp"
+#include "../Singleton.hpp"
 
 #define EVENT_TYPE_NUM 15
 #define EVENT_NUM 200

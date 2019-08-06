@@ -1,7 +1,7 @@
 #ifndef KFTG_ALLOCATORS
 #define KFTG_ALLOCATORS
 
-#include "../Common/types.hpp"
+#include "../types.hpp"
 
 #define MEM_STACK_POOL_LEN 4000
 

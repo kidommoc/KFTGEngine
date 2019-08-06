@@ -3,11 +3,11 @@
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
-#include "../Common/Module.hpp"
-#include "../Common/Singleton.hpp"
-#include "../Common/types.hpp"
-#include "string.hpp"
-#include "AssetTypes.hpp"
+#include "../Module.hpp"
+#include "../Singleton.hpp"
+#include "../types.hpp"
+#include "../string.hpp"
+#include "../Asset/AssetTypes.hpp"
 
 namespace KFTG
 {

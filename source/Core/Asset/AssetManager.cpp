@@ -1,6 +1,6 @@
 #include <new>
 #include "AssetManager.hpp"
-#include "Math.hpp"
+#include "../Math.hpp"
 #include "../Memory/MemoryManager.hpp"
 
 namespace KFTG

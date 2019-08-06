@@ -1,5 +1,5 @@
-#include <sys/time.h>
 #include "Time.hpp"
+#include <sys/time.h>
 
 namespace KFTG
 {

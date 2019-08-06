@@ -1,4 +1,4 @@
-#include "AssetTypes.hpp"
+#include "../Asset/AssetTypes.hpp"
 #include "../Memory/MemoryManager.hpp"
 
 namespace KFTG

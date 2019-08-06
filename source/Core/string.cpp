@@ -1,6 +1,6 @@
 #include <cstring>
 #include "string.hpp"
-#include "../Memory/MemoryManager.hpp"
+#include "Memory/MemoryManager.hpp"
 
 namespace KFTG
 {
