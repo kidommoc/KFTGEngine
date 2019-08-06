@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_ROOT
+#define KFTG_ROOT
 
 #include "../Common/types.hpp"
 #include "../Memory/MemoryManager.hpp"
@@ -36,3 +37,5 @@ private:
 };
 
 }
+
+#endif // ROOT

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_MAP
+#define KFTG_MAP
 
 #include "../Common/types.hpp"
 #include "string.hpp"
@@ -104,3 +105,5 @@ private:
 };
 
 }
+
+#endif // MAP

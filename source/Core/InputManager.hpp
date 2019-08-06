@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_INPUT_MANAGER
+#define KFTG_INPUT_MANAGER
 
 #include <windows.h>
 #include "../Common/Module.hpp"
@@ -36,3 +37,5 @@ private:
 };
 
 }
+
+#endif // INPUT_MANAGER

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_SINGLETON
+#define KFTG_SINGLETON
 
 namespace KFTG
 {
@@ -6,3 +7,5 @@ namespace KFTG
 class Singleton { }; 
 
 }
+
+#endif // SINGLETON

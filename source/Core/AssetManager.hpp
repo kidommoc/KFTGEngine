@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_ASSET_MANAGER
+#define KFTG_ASSET_MANAGER
 
 #include "string.hpp"
 #include "../Common/types.hpp"
@@ -98,3 +99,5 @@ private:
 };
 
 }
+
+#endif // ASSET_MANAGER

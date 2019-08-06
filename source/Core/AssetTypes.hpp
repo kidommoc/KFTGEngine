@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_ASSET_TYPES
+#define KFTG_ASSET_TYPES
 
 #include "string.hpp"
 #include "../Common/types.hpp"
@@ -71,3 +72,5 @@ private:
 };
 
 }
+
+#endif // ASSET_TYPES

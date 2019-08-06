@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_MATH
+#define KFTG_MATH
 
 #include "../Common/types.hpp"
 #include "string.hpp"
@@ -10,3 +11,5 @@ namespace KFTG
 u32 hash (const string &key);
 
 }
+
+#endif // MATH

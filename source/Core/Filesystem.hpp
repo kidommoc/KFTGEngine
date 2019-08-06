@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_FILESYSTEM
+#define KFTG_FILESYSTEM
 
 #include "../Common/Module.hpp"
 #include "../Common/Singleton.hpp"
@@ -51,3 +52,5 @@ void readThread (void *lpParam);
 void writeThread (void *lpParam);
 
 }
+
+#endif // FILESYSTEM

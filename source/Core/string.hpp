@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_STRING
+#define KFTG_STRING
 
 #include "../Common/types.hpp"
 
@@ -51,3 +52,5 @@ bool operator == (const char *s1, const string &s2);
 bool operator != (const char *s1, const string &s2);
 
 }
+
+#endif // STRING

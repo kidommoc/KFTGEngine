@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_MEMORY_MANAGER
+#define KFTG_MEMORY_MANAGER
 
 #include "../Common/types.hpp"
 #include "../Common/Module.hpp"
@@ -46,3 +47,5 @@ private:
 };
 
 }
+
+#endif // MEMORY_MANAGER

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_MODULE
+#define KFTG_MODULE
 
 namespace KFTG
 {
@@ -17,3 +18,5 @@ public:
 };
 
 }
+
+#endif // MODULE

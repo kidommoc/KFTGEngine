@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_DISPLAY_MANAGER
+#define KFTG_DISPLAY_MANAGER
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
@@ -47,3 +48,5 @@ private:
 };
 
 }
+
+#endif // DISPLAY_MANAGER

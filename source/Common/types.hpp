@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_TYPES
+#define KFTG_TYPES
 
 #include <stdint.h>
 
@@ -32,3 +33,5 @@ struct Color
 };
 
 }
+
+#endif // TYPES

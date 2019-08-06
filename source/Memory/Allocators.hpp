@@ -1,4 +1,5 @@
-#pragma once
+#ifndef KFTG_ALLOCATORS
+#define KFTG_ALLOCATORS
 
 #include "../Common/types.hpp"
 
@@ -71,3 +72,5 @@ private:
 };
 
 }
+
+#endif // ALLOCATORS
