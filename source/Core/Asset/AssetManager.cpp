@@ -47,8 +47,10 @@ AssetLoader::AssetLoader ()
 
 AssetLoader::~AssetLoader ()
 {
+#ifndef NODATA
 	MemoryManager::instance ()->freeAsset (_index);
 	delete _fs;
+#endif
 }
 
 AssetLoader* AssetLoader::instance ()

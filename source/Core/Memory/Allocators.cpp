@@ -1,4 +1,5 @@
 #include "Allocators.hpp"
+#include "MemoryManager.hpp"
 
 namespace KFTG
 {
@@ -12,7 +13,7 @@ PoolAllocator::PoolAllocator (u32 size, u32 len)
 	if (size < 4)
 		return;
 	
-	_mem = new char[size * len];
+	_mem = (char*) MemoryManager::instance ()->allocAsset (size * len);
 	_next = _mem;
 	init (size, len);
 }
@@ -102,7 +103,7 @@ void* HeapAllocator::alloc (u32 size)
 	return nullptr; // TODO: error handling
 }
 
-void HeapAllocator::free (void *p)
+bool HeapAllocator::free (void *p)
 {
 	BlockNode *tmp = _blockNodes;
 
@@ -136,10 +137,11 @@ void HeapAllocator::free (void *p)
 				_pool.free (tmpb);
 			}
 
-			return;
+			return true;
 		}
 		tmp = tmp->next;
 	}
+	return false;
 }
 
 // StackAllocator

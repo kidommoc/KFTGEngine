@@ -33,7 +33,7 @@ public:
 	~HeapAllocator ();
 
 	void* alloc (u32 size);
-	void free (void *p);
+	bool free (void *p);
 
 private:
 	struct BlockNode

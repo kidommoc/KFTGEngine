@@ -37,7 +37,7 @@ private:
 			{ asset = e.asset; size = e.size; return *this; }
 	};
 
-	AssetRegistry () {}
+	AssetRegistry () : _registry (false) {}
 
 	map<Element> _registry;
 };

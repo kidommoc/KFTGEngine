@@ -4,6 +4,7 @@
 #include "types.hpp"
 #include "string.hpp"
 #include "Math.hpp"
+#include "Memory/MemoryManager.hpp"
 
 #define MAP_CAPACITY 2000
 
@@ -14,14 +15,20 @@ template <typename T>
 class map
 {
 public:
-	map ()
+	map (bool isScene) : _isScene (isScene)
 	{
-		_table = (Element*) new char[MAP_CAPACITY];
+		if (isScene)
+			_table = (Element*) MemoryManager::instance ()
+				->allocScene (MAP_CAPACITY * sizeof (Element));
+		else
+			_table = (Element*) MemoryManager::instance ()
+				->allocAsset (MAP_CAPACITY * sizeof (Element));
 	}
 
 	~map ()
 	{
-		delete[] _table;
+		if (!_isScene)
+			MemoryManager::instance ()->freeAsset (_table);
 	}
 
 	T* query (const string &k)
@@ -101,6 +108,7 @@ private:
 		T value;
 	};
 
+	bool _isScene;
 	Element *_table;
 };
 

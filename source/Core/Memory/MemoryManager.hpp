@@ -36,7 +36,10 @@ public:
 	void freeXMLAttr (void *p);
 
 private:
-	MemoryManager () {}
+	MemoryManager ()
+		: _stackAllocator (nullptr), _assetAllocator (nullptr),
+		_XMLNodePool (nullptr), _XMLAttrPool (nullptr)
+	{}
 
 	StackAllocator *_stackAllocator;
 	HeapAllocator *_assetAllocator;

@@ -39,7 +39,10 @@ void* MemoryManager::allocFrame (u32 size)
 
 void* MemoryManager::allocAsset (u32 size)
 {
-	return _assetAllocator->alloc (size);
+	if (_assetAllocator)
+		return _assetAllocator->alloc (size);
+	else
+		return new char[size];
 }
 
 void* MemoryManager::allocXMLNode ()
@@ -64,7 +67,8 @@ void MemoryManager::freeFrame ()
 
 void MemoryManager::freeAsset (void *p)
 {
-	_assetAllocator->free (p);
+	if (_assetAllocator->free (p))
+		delete[] p;
 }
 
 void MemoryManager::freeXMLNode (void *p)
