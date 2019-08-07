@@ -44,6 +44,22 @@ void keycb (GLFWwindow *w, int key, int scancode, int action, int mode)
 		case GLFW_KEY_F10:           k = Keys::F10;         break;
 		case GLFW_KEY_F11:           k = Keys::F11;         break;
 		case GLFW_KEY_F12:           k = Keys::F12;         break;
+		case GLFW_KEY_KP_0:          k = Keys::KP0;         break;
+		case GLFW_KEY_KP_1:          k = Keys::KP1;         break;
+		case GLFW_KEY_KP_2:          k = Keys::KP2;         break;
+		case GLFW_KEY_KP_3:          k = Keys::KP3;         break;
+		case GLFW_KEY_KP_4:          k = Keys::KP4;         break;
+		case GLFW_KEY_KP_5:          k = Keys::KP5;         break;
+		case GLFW_KEY_KP_6:          k = Keys::KP6;         break;
+		case GLFW_KEY_KP_7:          k = Keys::KP7;         break;
+		case GLFW_KEY_KP_8:          k = Keys::KP8;         break;
+		case GLFW_KEY_KP_9:          k = Keys::KP9;         break;
+		case GLFW_KEY_KP_ADD:        k = Keys::KPADD;       break;
+		case GLFW_KEY_KP_SUBTRACT:   k = Keys::KPMINUS;     break;
+		case GLFW_KEY_KP_MULTIPLY:   k = Keys::KPMULTIPLY;  break;
+		case GLFW_KEY_KP_DIVIDE:     k = Keys::KPDIVIDE;    break;
+		case GLFW_KEY_KP_DECIMAL:    k = Keys::KPDECIMAL;   break;
+		case GLFW_KEY_KP_ENTER:      k = Keys::KPENTER;     break;
 		default:                     k = key;               break;
 	}
 
