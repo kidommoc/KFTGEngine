@@ -4,6 +4,7 @@
 #include "../types.hpp"
 #include "../Module.hpp"
 #include "../Singleton.hpp"
+#include "../Keys.hpp"
 
 #define EVENT_TYPE_NUM 15
 #define EVENT_NUM 200
@@ -30,27 +31,6 @@ class QuitGameListener : public EventListener
 public:
 	virtual void callback (void *param) override;
 	virtual void setQuit () = 0;
-};
-
-enum Keys
-{
-	TAB = 9,
-	ESC = 27,
-	SPACE = 32,
-	ARROW_UP = 128,
-	ARROW_DOWN,
-	ARROW_LEFT,
-	ARROW_RIGHT,
-	BACKSPACE,
-	LEFT_CTRL,
-	RIGHT_CTRL,
-	LEFT_SHIFT,
-	RIGHT_SHIFT,
-	LEFT_ALT,
-	RIGHT_ALT,
-	CAPS_LOCK,
-	F1, F2, F3, F4, F5, F6,
-	F7, F8, F9, F10, F11, F12
 };
 
 class KeyPressListener : public EventListener

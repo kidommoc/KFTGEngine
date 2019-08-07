@@ -1,4 +1,5 @@
 #include "../Display/DisplayManager.hpp"
+#include "../Keys.hpp"
 #include "../Event/EventManager.hpp"
 #include "../Memory/MemoryManager.hpp"
 #include <windows.h>

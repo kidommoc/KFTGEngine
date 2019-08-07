@@ -4,6 +4,7 @@
 #include <windows.h>
 #include "../Module.hpp"
 #include "../Singleton.hpp"
+#include "../Keys.hpp"
 #include "EventManager.hpp"
 
 #define KEY_NUM 150
