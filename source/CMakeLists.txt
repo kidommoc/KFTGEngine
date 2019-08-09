@@ -23,7 +23,9 @@ endif(glfw_LIB)
 file(COPY ${LIBS} DESTINATION ${EXECUTABLE_OUTPUT_PATH})
 
 add_subdirectory(Core)
+add_subdirectory(Logic)
 
 target_link_libraries(${GAME_NAME}
 	Core
+	Logic
 )

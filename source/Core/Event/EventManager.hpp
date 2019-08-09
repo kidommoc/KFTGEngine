@@ -17,7 +17,8 @@ enum Event
 	// TODO: more event
 	QuitGame,
 	KeyPress,
-	KeyRelease
+	KeyRelease,
+	ComponentRemove
 };
 
 class EventListener
@@ -26,7 +27,7 @@ public:
 	virtual void callback (void *param) = 0;
 };
 
-class QuitGameListener : public EventListener
+class QuitListener : public EventListener
 {
 public:
 	virtual void callback (void *param) override;
@@ -45,6 +46,13 @@ class KeyReleaseListener : public EventListener
 public:
 	virtual void callback (void *param) override;
 	virtual void whenKeyRelease (u32 key) = 0;
+};
+
+class ComponentRemoveListener : public EventListener
+{
+public:
+	virtual void callback (void *param) override;
+	virtual void whenComponentRemove (u16 id) = 0;
 };
 
 // TODO: more event listener

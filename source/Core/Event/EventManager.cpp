@@ -3,19 +3,24 @@
 namespace KFTG
 {
 
-void QuitGameListener::callback (void *param)
+void QuitListener::callback (void *param)
 {
 	setQuit ();
 }
 
 void KeyPressListener::callback (void *param)
 {
-	whenKeyPress (*((u32*)param));
+	whenKeyPress (*((u32*) param));
 }
 
 void KeyReleaseListener::callback (void *param)
 {
-	whenKeyRelease (*((u32*)param));
+	whenKeyRelease (*((u32*) param));
+}
+
+void ComponentRemoveListener::callback (void *param)
+{
+	whenComponentRemove (*((u16*) param));
 }
 
 // EventManager

@@ -9,11 +9,12 @@
 #include "Event/InputManager.hpp"
 #include "Time/Time.hpp"
 #include "Audio/AudioManager.hpp"
+#include "../Logic/Logic.hpp"
 
 namespace KFTG
 {
 
-class Root : public QuitGameListener
+class Root : public QuitListener
 {
 public:
 	Root ();
@@ -34,6 +35,7 @@ private:
 	InputManager *_inputManager;
 	AudioManager *_audioManager;
 	Time *_time;
+	Logic *_logic;
 };
 
 }

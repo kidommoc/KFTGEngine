@@ -1,9 +1,9 @@
 set(HEADERS
-	System.hpp
+	World.hpp
 )
 
 set(SOURCES
-	System.cpp
+	World.cpp
 )
 
 add_library(System

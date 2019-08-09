@@ -13,6 +13,7 @@ Root::Root ()
 	//_audioManager = AudioManager::instance ();
 	//others
 	_time = Time::instance ();
+	_logic = Logic::instance ();
 
 	_memoryManager->init ();
 	_eventManager->init ();
@@ -20,8 +21,8 @@ Root::Root ()
 	_displayManager->init ();
 	_inputManager->init ();
 	//_audioManager->init ();
-	//others
 	_time->init ();
+	_logic->init ();
 
 	_eventManager->registerEvent (Event::QuitGame, this);
 	_eventManager->registerEvent (Event::KeyPress,
@@ -32,8 +33,8 @@ Root::Root ()
 
 Root::~Root ()
 {
+	_logic->exit ();
 	_time->exit ();
-	// others
 	//_audioManager->exit ();
 	_inputManager->exit ();
 	_displayManager->exit ();
@@ -48,6 +49,7 @@ void Root::loop ()
 	_displayManager->loop ();
 	//_audioManager->loop ();
 	_time->loop ();
+	_logic->loop ();
 }
 
 }
