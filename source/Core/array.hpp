@@ -21,10 +21,16 @@ public:
 	public:
 		iterator (u32 ind, array<T> *a) : index (ind), arr (a) {}
 		T& operator * () { return a[index]; }
-		iterator& operator + (u32 n) { index += n; }
-		iterator& operator ++ () { ++index; }
-		iterator& operator - (u32 n) { index -= n; }
-		iterator& operator -- () { --index; }
+		iterator& operator + (u32 n) { index += n; return *this; }
+		iterator& operator - (u32 n) { index -= n; return this*; }
+		iterator& operator ++ () { ++index; return *this; }
+		iterator& operator -- () { --index; return *this; }
+		bool operator == (iterator &it) { return index == it.index; }
+		bool operator != (iterator &it) { return index != it.index; }
+		bool operator >  (iterator &it) { return index >  it.index; }
+		bool operator >= (iterator &it) { return index >= it.index; }
+		bool operator <  (iterator &it) { return index <  it.index; }
+		bool operator <= (iterator &it) { return index <= it.index; }
 	
 	private:
 		u32 index;
@@ -44,8 +50,10 @@ public:
 	}
 
 	u32 len () { return size; }
-	iterator& begin () { return iterator (0, this); }
-	iterator& end () { return iterator (size, this); }
+	iterator&       begin ()         { return iterator (0, this); }
+	const iterator& begin () const   { return iterator (0, this); }
+	iterator&       end ()           { return iterator (size, this); }
+	const iterator& end ()   const   { return iterator (size, this); }
 
 	void append (T &e)
 	{
@@ -60,6 +68,8 @@ public:
 		}
 		arr[size++] = e;
 	}
+
+	void shrink () { --size; }
 
 	T& operator [] (u32 index) { return arr[index]; }
 	const T& operator [] (u32 index) const { return arr[index]; }
