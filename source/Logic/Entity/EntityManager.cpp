@@ -10,7 +10,7 @@ Entity EntityManager::createEntity ()
 	return e;
 }
 
-void EntityManager::destroyEntity ()
+void EntityManager::destroyEntity (Entity e)
 {
 }
 

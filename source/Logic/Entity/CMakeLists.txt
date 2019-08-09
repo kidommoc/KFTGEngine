@@ -1,10 +1,11 @@
 set(HEADERS
 	Entity.hpp
+	EntityHandle.hpp
 	EntityManager.hpp
 )
 
 set(SOURCES
-	Entity.cpp
+	EntityHandle.cpp
 	EntityManager.cpp
 )
 

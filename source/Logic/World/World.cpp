@@ -1,5 +1,5 @@
 #include "World.hpp"
-#include "../Core/Event/EventManager.hpp"
+#include "../../Core/Event/EventManager.hpp"
 
 namespace KFTG
 {
@@ -9,11 +9,12 @@ void World::setQuit ()
 	_isQuit = true;
 }
 
-EntityHandle World::createEntity ()
+EntityHandle* World::createEntity ()
 {
 	Entity e = _entityManager->createEntity ();
 	_entityMasks.add (e.id, ComponentsMask ());
-	return {e, this};
+	EntityHandle handle (e, this);
+	return &handle;
 }
 
 void World::destroyEntity (Entity e)
@@ -30,9 +31,9 @@ void World::addComponent (Entity e, ComponentType &c)
 	u16 type = ComponentType ().type;
 	dynamic_cast<ComponentManager<ComponentType>*> (_componentManagers[type])
 		->add (e, c);
-	ComponentsMask old = *_entityManager.query (e);
-	_entityMasks.query (e)->add (type);
-	updateSystemCare (e);
+	ComponentsMask old = *_entityMasks.query (e.id);
+	_entityMasks.query (e.id)->add (type);
+	updateSystemCare (e, old);
 }
 
 template <typename ComponentType>
@@ -41,8 +42,8 @@ void World::removeComponent (Entity e)
 	u16 type = ComponentType ().type;
 	dynamic_cast<ComponentManager<ComponentType>*> (_componentManagers[type])
 		->remove (e);
-	ComponentsMask old = *_entityManager.query (e);
-	_entityMasks.query (e)->remove (type);
+	ComponentsMask old = *_entityMasks.query (e.id);
+	_entityMasks.query (e.id)->remove (type);
 	updateSystemCare (e, old);
 }
 

@@ -1,4 +1,4 @@
-#include "Entity.hpp"
+#include "EntityHandle.hpp"
 
 namespace KFTG
 {
@@ -11,13 +11,13 @@ void EntityHandle::destroy ()
 template <typename ComponentType>
 void EntityHandle::addComponent (ComponentType &c)
 {
-	_world->addComponent<ComponentType> (_entity, c);
+	_world->addComponent<ComponentType> (entity, c);
 }
 
 template <typename ComponentType>
 void EntityHandle::removeComponent ()
 {
-	_world->removeComponent<ComponentType> (_entity);
+	_world->removeComponent<ComponentType> (entity);
 }
 
 }

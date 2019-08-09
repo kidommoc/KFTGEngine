@@ -5,8 +5,8 @@
 #include "../../Core/map.hpp"
 #include "../../Core/array.hpp"
 #include "../../Core/Event/EventManager.hpp"
-#include "Component.hpp"
 #include "../Entity/Entity.hpp"
+#include "Component.hpp"
 
 namespace KFTG
 {

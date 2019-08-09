@@ -9,6 +9,8 @@
 namespace KFTG
 {
 
+class World;
+
 class System
 {
 public:

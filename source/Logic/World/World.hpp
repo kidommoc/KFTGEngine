@@ -1,15 +1,21 @@
 #ifndef KFTG_WORLD
 #define KFTG_WORLD
 
-#include "../Core/array.hpp"
+#include "../../Core/array.hpp"
 #include "../Entity/Entity.hpp"
+#include "../Entity/EntityHandle.hpp"
 #include "../Entity/EntityManager.hpp"
 #include "../Component/Component.hpp"
+#include "../Component/ComponentHandle.hpp"
 #include "../Component/ComponentManager.hpp"
 #include "../System/System.hpp"
 
 namespace KFTG
 {
+
+class EntityHandle;
+class AbstractCM;
+class System;
 
 // init (): instantiate entity manager, component managers and systems
 //          and register events
@@ -19,13 +25,13 @@ namespace KFTG
 class World : public QuitListener
 {
 public:
-	virtual void init (void *param) = 0;
-	virtual void update (f32 deltaTime) = 0;
-	virtual void exit () = 0;
+	void init (void *param);
+	void update (f32 deltaTime);
+	void exit ();
 
 	void setQuit () override;
 
-	EntityHandle createEntity ();
+	EntityHandle* createEntity ();
 	void destroyEntity (Entity e);
 
 	template <typename ComponentType>

@@ -20,9 +20,10 @@ public:
 	{
 	public:
 		iterator (u32 ind, array<T> *a) : index (ind), arr (a) {}
-		T& operator * () { return a[index]; }
+		T& operator * () { return arr->arr[index]; }
+		const T& operator * () const { return arr->arr[index]; }
 		iterator& operator + (u32 n) { index += n; return *this; }
-		iterator& operator - (u32 n) { index -= n; return this*; }
+		iterator& operator - (u32 n) { index -= n; return *this; }
 		iterator& operator ++ () { ++index; return *this; }
 		iterator& operator -- () { --index; return *this; }
 		bool operator == (iterator &it) { return index == it.index; }
@@ -41,7 +42,7 @@ public:
 		: size (ARRAY_BLOCK_SIZE), capability (ARRAY_BLOCK_SIZE)
 	{
 		arr = (T*) MemoryManager::instance ()
-			->allocAsset (ARRAY_BLOCK_SIZE * sizeof (T))
+			->allocAsset (ARRAY_BLOCK_SIZE * sizeof (T));
 	}
 
 	~array ()
@@ -50,17 +51,24 @@ public:
 	}
 
 	u32 len () { return size; }
-	iterator&       begin ()         { return iterator (0, this); }
-	const iterator& begin () const   { return iterator (0, this); }
-	iterator&       end ()           { return iterator (size, this); }
-	const iterator& end ()   const   { return iterator (size, this); }
+	iterator begin () { return {0, const_cast<array*> (this)}; }
+	iterator begin () const
+	{
+		return {0, const_cast<array*> (this)};
+	}
+
+	iterator end () { return {size, const_cast<array*> (this)}; }
+	iterator end () const
+	{
+		return {size, const_cast<array*> (this)};
+	}
 
 	void append (T &e)
 	{
 		if (size >= capability)
 		{
 			T* tmp = (T*) MemoryManager::instance ()
-				->allocAsset ((capability + ARRAY_BLOCK_SIZE) * sizeof (T))
+				->allocAsset ((capability + ARRAY_BLOCK_SIZE) * sizeof (T));
 			std::memcpy (tmp, arr, capability);
 			MemoryManager::instance ()->freeAsset (arr);
 			arr = tmp;

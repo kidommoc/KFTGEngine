@@ -2,7 +2,6 @@
 #define KFTG_COMPONENT
 
 #include "../../Core/types.hpp"
-#include "World.hpp"
 
 #define COMPONENTS_NUM 16
 
@@ -21,16 +20,6 @@ enum ComponentType
 	ANIMATION,
 	COLLIDER
 	*/
-	/*
-	TRANSFORM = 1,
-	MOTION    = 2,
-	CAMARA    = 4,
-	JOYSTICK  = 8,
-	ACTION    = 16,
-	SPRITE    = 32,
-	ANIMATION = 64,
-	COLLIDER  = 128
-	*/
 };
 
 // each component should inherit it and set its own mask
@@ -41,22 +30,6 @@ struct Component
 
 	virtual bool operator == (Component &other) = 0;
 	virtual bool operator != (Component &other) = 0;
-};
-
-template <typename ComponentType>
-struct ComponentHandle
-{
-	Entity entity;
-	ComponentType *component;
-
-	ComponentHandle (Entity e);
-
-	void destroy ()
-	{ _world->removeComponent<ComponentType> (entity); }
-
-private:
-	World *_world;
-	ComponentManager<ComponentType> *_manager;
 };
 
 class ComponentsMask

@@ -1,9 +1,11 @@
 set(HEADERS
 	Component.hpp
+	ComponentHandle.hpp
 	ComponentManager.hpp
 )
 
 set(SOURCES
+	ComponentHandle.cpp
 	ComponentManager.cpp
 )
 

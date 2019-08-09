@@ -6,11 +6,11 @@ set(SOURCES
 	World.cpp
 )
 
-add_library(System
+add_library(World
 	${HEADERS}
 	${SOURCES}
 )
 
-target_link_libraries(System
+target_link_libraries(World
 	Logic
 )
