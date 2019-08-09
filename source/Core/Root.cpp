@@ -24,7 +24,7 @@ Root::Root ()
 	_time->init ();
 	_logic->init ();
 
-	_eventManager->registerEvent (Event::QuitGame, this);
+	_eventManager->registerEvent (Event::Quit, this);
 	_eventManager->registerEvent (Event::KeyPress,
 		dynamic_cast<KeyPressListener*> (_inputManager));
 	_eventManager->registerEvent (Event::KeyRelease,

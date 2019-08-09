@@ -168,7 +168,7 @@ void DisplayManager::exit ()
 void DisplayManager::loop ()
 {
 	if (glfwWindowShouldClose (_window))
-		EventManager::instance ()->fireEvent (Event::QuitGame, nullptr);
+		EventManager::instance ()->fireEvent (Event::Quit, nullptr);
 	glfwPollEvents ();
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 	glClear (GL_COLOR_BUFFER_BIT);
@@ -203,6 +203,11 @@ void DisplayManager::drawImg (const Image *img, u32 x, u32 y, f32 scale)
 	for (int i = 0; i < newHeight; ++i)
 		for (int j = 0; j < newWidth; ++j)
 		{
+			u16 rX = nX + (j - oX);
+			u16 rY = nY + (i - oY);
+			if (rX < 0 || rX >= _windowWidth ||
+				rY < 0 || rY >= _windowHeight)
+				continue;
 			Color c;
 			if (scale == 1.0f)
 			{
@@ -229,17 +234,23 @@ void DisplayManager::drawImg (const Image *img, u32 x, u32 y, f32 scale)
 				f32 w2 =      fX  * (1 - fY);
 				f32 w3 = (1 - fX) *      fY;
 				f32 w4 =      fX  *      fY;
-				c.red   = img->image[ind1].red   * w1 + img->image[ind2].red   * w2
-				         +img->image[ind3].red   * w3 + img->image[ind4].red   * w4;
-				c.green = img->image[ind1].green * w1 + img->image[ind2].green * w2
-				         +img->image[ind3].green * w3 + img->image[ind4].green * w4;
-				c.blue  = img->image[ind1].blue  * w1 + img->image[ind2].blue  * w2
-				         +img->image[ind3].blue  * w3 + img->image[ind4].blue  * w4;
-				c.alpha = img->image[ind1].alpha * w1 + img->image[ind2].alpha * w2
-				         +img->image[ind3].alpha * w3 + img->image[ind4].alpha * w4;
+				c.red   = img->image[ind1].red   * w1
+						+ img->image[ind2].red   * w2
+						+ img->image[ind3].red   * w3
+						+ img->image[ind4].red   * w4;
+				c.green = img->image[ind1].green * w1
+						+ img->image[ind2].green * w2
+						+ img->image[ind3].green * w3
+						+ img->image[ind4].green * w4;
+				c.blue  = img->image[ind1].blue  * w1
+						+ img->image[ind2].blue  * w2
+						+ img->image[ind3].blue  * w3
+						+ img->image[ind4].blue  * w4;
+				c.alpha = img->image[ind1].alpha * w1
+						+ img->image[ind2].alpha * w2
+						+ img->image[ind3].alpha * w3
+						+ img->image[ind4].alpha * w4;
 			}
-			u16 rX = nX + (j - oX);
-			u16 rY = nY + (i - oY);
 			_canvas->image[rY * _canvas->width + rX] = c;
 		}
 }
