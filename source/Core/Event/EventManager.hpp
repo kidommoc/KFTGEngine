@@ -15,7 +15,7 @@ namespace KFTG
 enum Event
 {
 	// TODO: more event
-	QuitGame,
+	Quit,
 	KeyPress,
 	KeyRelease,
 	ComponentRemove
