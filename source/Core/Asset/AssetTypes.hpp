@@ -16,6 +16,18 @@ struct Image
 	Color image[0];
 };
 
+struct Animation
+{
+	struct Clip
+	{
+		u16 time;
+		Image *img;
+	};
+
+	u16 len;
+	Clip ani[0];
+};
+
 struct Audio
 {
 	// TODO: audio struct
@@ -30,8 +42,15 @@ public:
 
 		struct Attribute
 		{
+			enum Type { STRING, NUMBER };
+
+			Type type;
 			string key;
-			string value;
+			union Value
+			{
+				string s;
+				u32 n;
+			} value;
 			Attribute *next;
 		};
 
@@ -54,21 +73,19 @@ public:
 		void removeAttr (Attribute *attr);
 		void removeAttr (const string &key);
 
+		enum Type type;
+		string tag;
+		Attribute *attrs;
+
 		Node *parent;
 		Node *firstChild;
 		Node *lastChild;
 		Node *prevSibling;
 		Node *nextSibling;
-		Attribute *attrs;
-		enum Type type;
-		string tag;
 		string value;
 	};
 
-	Node* findNode (const string &tag);
-
-private:
-	Node *_root;
+	Node *root;
 };
 
 }

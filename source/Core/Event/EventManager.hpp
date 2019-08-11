@@ -15,7 +15,8 @@ namespace KFTG
 enum Event
 {
 	// TODO: more event
-	Quit,
+	QuitGame,
+	QuitScene,
 	KeyPress,
 	KeyRelease,
 	ComponentRemove
@@ -27,7 +28,14 @@ public:
 	virtual void callback (void *param) = 0;
 };
 
-class QuitListener : public EventListener
+class QuitGameListener : public EventListener
+{
+public:
+	virtual void callback (void *param) override;
+	virtual void setQuit () = 0;
+};
+
+class QuitSceneListener : public EventListener
 {
 public:
 	virtual void callback (void *param) override;

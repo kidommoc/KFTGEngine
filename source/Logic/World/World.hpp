@@ -2,6 +2,7 @@
 #define KFTG_WORLD
 
 #include "../../Core/array.hpp"
+#include "../../Core/Asset/AssetTypes.hpp"
 #include "../Entity/Entity.hpp"
 #include "../Entity/EntityHandle.hpp"
 #include "../Entity/EntityManager.hpp"
@@ -17,19 +18,20 @@ class EntityHandle;
 class AbstractCM;
 class System;
 
-// init (): instantiate entity manager, component managers and systems
-//          and register events
-// update (): call update()s of systems
-// exit (): unregister events
-
-class World : public QuitListener
+class World : public QuitSceneListener
 {
 public:
-	void init (void *param);
-	void update (f32 deltaTime);
-	void exit ();
+	World ()
+		: _isQuit (false), _entityMasks (true), _systems ()
+	{}
+	~World () {}
 
-	void setQuit () override;
+	void init (GUID &sceneName);
+	void update (f32 deltaTime);
+	GUID* exit ();
+
+	bool isQuit () { return _isQuit; }
+	void setQuit () override { _isQuit = true; }
 
 	EntityHandle* createEntity ();
 	void destroyEntity (Entity e);
@@ -47,6 +49,8 @@ public:
 	void getComponents (Entity e, ComponentType &c, Args & ... args);
 
 protected:
+	void initSystems (u32 mask);
+	void initEntities (XML::Node *root);
 	void updateSystemCare (Entity e, ComponentsMask old);
 
 	bool _isQuit;

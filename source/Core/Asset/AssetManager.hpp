@@ -20,9 +20,9 @@ public:
 	static AssetRegistry* instance ();
 	~AssetRegistry () {}
 
-	void* queryAsset (const GUID &uid, u32 &size);
 	void addAsset (const GUID &uid, void *asset, u32 size);
 	void deleteAsset (GUID uid);
+	void* queryAsset (const GUID &uid);
 
 private:
 	struct Element
@@ -32,9 +32,6 @@ private:
 		Element (const Element &e) : asset (e.asset), size (e.size) {}
 		void *asset;
 		u32 size;
-
-		const Element& operator = (const Element &e)
-			{ asset = e.asset; size = e.size; return *this; }
 	};
 
 	AssetRegistry () : _registry (false) {}
@@ -48,7 +45,7 @@ public:
 	static AssetLoader* instance ();
 	~AssetLoader ();
 	// no need to divide data into multiple files temporarily
-	// only all.data for all of serialized assets
+	// only assets.data for all of serialized assets
 	// and index.data for the data index in serialized xml
 	void* loadAsset (const string &path);
 
@@ -89,7 +86,7 @@ public:
 	~AssetManager () {}
 	virtual void init () override;
 	virtual void exit () override;
-	void* queryAsset (const string &guid, u32 &size);
+	void* queryAsset (const string &guid);
 
 private:
 	AssetManager () {}

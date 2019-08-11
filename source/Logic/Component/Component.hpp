@@ -18,7 +18,8 @@ enum ComponentType
 	ACTION,
 	SPRITE,
 	ANIMATION,
-	COLLIDER
+	COLLIDER,
+	UI
 	*/
 };
 

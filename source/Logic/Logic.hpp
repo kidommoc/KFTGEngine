@@ -4,6 +4,7 @@
 #include "../Core/Module.hpp"
 #include "../Core/Singleton.hpp"
 #include "../Core/types.hpp"
+#include "World/World.hpp"
 
 namespace KFTG
 {
@@ -18,10 +19,10 @@ public:
 	virtual void loop () override;
 	virtual void exit () override;
 
-	//void loadScene ();
-
 private:
 	Logic () {}
+
+	World *_scene;
 };
 
 }

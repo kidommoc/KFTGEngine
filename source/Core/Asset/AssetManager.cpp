@@ -14,13 +14,6 @@ AssetRegistry* AssetRegistry::instance ()
 	return &_instance;
 }
 
-void* AssetRegistry::queryAsset (const GUID &uid, u32 &size)
-{
-	Element e = *_registry.query (uid);
-	size = e.size;
-	return e.asset;
-}
-
 void AssetRegistry::addAsset (const GUID &uid, void *asset, u32 size)
 {
 	Element e{asset, size};
@@ -30,6 +23,12 @@ void AssetRegistry::addAsset (const GUID &uid, void *asset, u32 size)
 void AssetRegistry::deleteAsset (GUID uid)
 {
 	_registry.remove (uid);
+}
+
+void* AssetRegistry::queryAsset (const GUID &uid)
+{
+	Element e = *_registry.query (uid);
+	return e.asset;
 }
 
 // AssetLoader
@@ -112,9 +111,9 @@ void AssetManager::exit ()
 	delete _assetRegistry;
 }
 
-void* AssetManager::queryAsset (const string &guid, u32 &size)
+void* AssetManager::queryAsset (const string &guid)
 {
-	return _assetRegistry->queryAsset (guid, size);
+	return _assetRegistry->queryAsset (guid);
 }
 
 }

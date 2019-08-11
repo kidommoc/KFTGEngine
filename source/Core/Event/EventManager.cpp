@@ -3,7 +3,12 @@
 namespace KFTG
 {
 
-void QuitListener::callback (void *param)
+void QuitGameListener::callback (void *param)
+{
+	setQuit ();
+}
+
+void QuitSceneListener::callback (void *param)
 {
 	setQuit ();
 }

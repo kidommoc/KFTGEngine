@@ -2,6 +2,7 @@
 #define KFTG_ENTITY_MANAGER
 
 #include "../../Core/types.hpp"
+#include "../../Core/array.hpp"
 #include "Entity.hpp"
 
 namespace KFTG
@@ -10,14 +11,18 @@ namespace KFTG
 class EntityManager
 {
 public:
-	EntityManager () : entityCount (0) {}
+	EntityManager ()
+		: _entityCount (0), _entities ()
+	{}
 	~EntityManager ();
 
 	Entity createEntity ();
+	Entity createEntity (u16 pos);
 	void destroyEntity (Entity e);
 
 private:
-	u16 entityCount;
+	u16 _entityCount;
+	array<Entity> _entities;
 };
 
 }

@@ -14,7 +14,7 @@
 namespace KFTG
 {
 
-class Root : public QuitListener
+class Root : public QuitGameListener
 {
 public:
 	Root ();

@@ -2,6 +2,7 @@
 #include "../Keys.hpp"
 #include "../Event/EventManager.hpp"
 #include "../Memory/MemoryManager.hpp"
+#include "../Asset/AssetManager.hpp"
 #include <windows.h>
 
 namespace KFTG
@@ -87,7 +88,13 @@ void DisplayManager::init ()
 	glfwWindowHint (GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
 #ifndef NODATA
-	// TODO: get window name and size from data
+	u32 tmp;
+	_windowName   = *((string*) AssetManager::instance ()
+		->queryAsset ("WindowName"));
+	_windowWidth  = *((u32*)    AssetManager::instance ()
+		->queryAsset ("WindowWidth"));
+	_windowHeight = *((u32*)    AssetManager::instance ()
+		->queryAsset ("WindowHeight"));
 #else
 	_windowName = "test";
 	_windowWidth  = 1280;
@@ -168,7 +175,7 @@ void DisplayManager::exit ()
 void DisplayManager::loop ()
 {
 	if (glfwWindowShouldClose (_window))
-		EventManager::instance ()->fireEvent (Event::Quit, nullptr);
+		EventManager::instance ()->fireEvent (Event::QuitGame, nullptr);
 	glfwPollEvents ();
 	glClearColor (0.0f, 0.0f, 0.0f, 0.0f);
 	glClear (GL_COLOR_BUFFER_BIT);
@@ -203,8 +210,8 @@ void DisplayManager::drawImg (const Image *img, u32 x, u32 y, f32 scale)
 	for (int i = 0; i < newHeight; ++i)
 		for (int j = 0; j < newWidth; ++j)
 		{
-			u16 rX = nX + (j - oX);
-			u16 rY = nY + (i - oY);
+			i16 rX = nX + (j - oX);
+			i16 rY = nY + (i - oY);
 			if (rX < 0 || rX >= _windowWidth ||
 				rY < 0 || rY >= _windowHeight)
 				continue;

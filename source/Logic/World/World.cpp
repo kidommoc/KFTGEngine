@@ -1,12 +1,47 @@
 #include "World.hpp"
-#include "../../Core/Event/EventManager.hpp"
+#include <new>
+#include "../../Core/Memory/MemoryManager.hpp"
+#include "../../Core/Asset/AssetManager.hpp"
 
 namespace KFTG
 {
 
-void World::setQuit ()
+void World::init (GUID &sceneName)
 {
-	_isQuit = true;
+	MemoryManager *memMgr = MemoryManager::instance ();
+	AssetManager *assetMgr = AssetManager::instance ();
+	_entityManager = (EntityManager*) memMgr->allocScene
+		(sizeof (EntityManager));
+	::new (_entityManager) EntityManager ();
+
+	// init component managers
+	// ...
+
+	XML *scene = (XML*) assetMgr->queryAsset (sceneName);
+
+	typedef XML::Node::Attribute::Type AttrType;
+	XML::Node::Attribute *sysMask = scene->root->findAttr ("systems");
+	if (sysMask->type != AttrType::NUMBER)
+		; // TODO: error handling
+	initSystems (sysMask->value.n);
+
+	initEntities (scene->root);
+
+	EventManager::instance ()->registerEvent (Event::QuitScene, this);
+}
+
+void World::update (f32 deltaTime)
+{
+	for (auto sys : _systems)
+		sys->update (deltaTime);
+}
+
+GUID* World::exit ()
+{
+	for (auto sys : _systems)
+		sys->exit ();
+	EventManager::instance ()->unregisterEvent (Event::QuitScene, this);
+	MemoryManager::instance ()->freeScene ();
 }
 
 EntityHandle* World::createEntity ()
@@ -63,6 +98,33 @@ void World::getComponents (Entity e, ComponentType &c, Args &... args)
 		->query (e);
 
 	getComponents (e, args ...);
+}
+
+void World::initSystems (u32 mask)
+{
+	// ...
+}
+
+void World::initEntities (XML::Node *root)
+{
+	typedef XML::Node::Attribute::Type AttrType;
+	for (XML::Node *e = root->firstChild; e; e = e->nextSibling)
+	{
+		EntityHandle *entity = createEntity ();
+		for (XML::Node *c = e->firstChild; c; c = c->nextSibling)
+		{
+			XML::Node::Attribute *compType = e->findAttr ("ComponentType");
+			if (compType->type != AttrType::NUMBER)
+				continue; // TODO: error handling
+			switch (compType->value.n)
+			{
+				// ...
+				default:
+					// TODO: error handling
+					break;
+			}
+		}
+	}
 }
 
 void World::updateSystemCare (Entity e, ComponentsMask old)
