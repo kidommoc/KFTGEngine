@@ -14,10 +14,16 @@ struct Vec2
 {
 	Vec2 (f32 a, f32 b) : x (a), y (b) {}
 
-	Vec2& operator +  (Vec2 &other);
-	Vec2& operator += (Vec2 &other);
-	Vec2& operator -  (Vec2 &other);
-	Vec2& operator -= (Vec2 &other);
+	bool  operator == (const Vec2 &other)
+	{ return x == other.x && y == other.y; }
+
+	bool  operator != (const Vec2 &other)
+	{ return *this == other; }
+
+	Vec2& operator +  (const Vec2 &other);
+	Vec2& operator += (const Vec2 &other);
+	Vec2& operator -  (const Vec2 &other);
+	Vec2& operator -= (const Vec2 &other);
 
 	f32 x;
 	f32 y;

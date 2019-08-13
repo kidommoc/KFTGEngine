@@ -49,12 +49,14 @@ public:
 	void getComponents (Entity e, ComponentType &c, Args & ... args);
 
 protected:
+	void initComponentMgrs ();
 	void initSystems (u32 mask);
 	void initEntities (XML::Node *root);
 	void updateSystemCare (Entity e, ComponentsMask old);
 
 	bool _isQuit;
 	EntityManager *_entityManager;
+	EntityManager *_uiManager;
 	map<ComponentsMask> _entityMasks;
 	AbstractCM *_componentManagers[COMPONENTS_NUM];
 	array<System*> _systems;

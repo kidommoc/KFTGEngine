@@ -2,6 +2,14 @@
 #include <new>
 #include "../../Core/Memory/MemoryManager.hpp"
 #include "../../Core/Asset/AssetManager.hpp"
+#include "../Component/Animator.hpp"
+#include "../Component/Camera.hpp"
+#include "../Component/Collider.hpp"
+#include "../Component/HUD.hpp"
+#include "../Component/Motion.hpp"
+#include "../Component/Player.hpp"
+#include "../Component/Sprite.hpp"
+#include "../Component/Transform.hpp"
 
 namespace KFTG
 {
@@ -10,12 +18,12 @@ void World::init (GUID &sceneName)
 {
 	MemoryManager *memMgr = MemoryManager::instance ();
 	AssetManager *assetMgr = AssetManager::instance ();
-	_entityManager = (EntityManager*) memMgr->allocScene
-		(sizeof (EntityManager));
-	::new (_entityManager) EntityManager ();
+	_entityManager = new (memMgr->allocScene (sizeof (EntityManager)))
+		EntityManager ();
+	_uiManager = new (memMgr->allocScene (sizeof (EntityManager)))
+		EntityManager ();
 
-	// init component managers
-	// ...
+	initComponentMgrs ();
 
 	XML *scene = (XML*) assetMgr->queryAsset (sceneName);
 
@@ -98,6 +106,35 @@ void World::getComponents (Entity e, ComponentType &c, Args &... args)
 		->query (e);
 
 	getComponents (e, args ...);
+}
+
+void World::initComponentMgrs ()
+{
+	MemoryManager *memMgr = MemoryManager::instance ();
+	_componentManagers[ComponentType::PLAYER] = 
+		new (memMgr->allocScene (sizeof (ComponentManager<Player>)))
+		ComponentManager<Player> ();
+	_componentManagers[ComponentType::TRANSFORM] = 
+		new (memMgr->allocScene (sizeof (ComponentManager<Transform>)))
+		ComponentManager<Transform> ();
+	_componentManagers[ComponentType::MOTION] = 
+		new (memMgr->allocScene (sizeof (ComponentManager<Motion>)))
+		ComponentManager<Motion> ();
+	_componentManagers[ComponentType::CAMERA] = 
+		new (memMgr->allocScene (sizeof (ComponentManager<Camera>)))
+		ComponentManager<Camera> ();
+	_componentManagers[ComponentType::SPRITE] = 
+		new (memMgr->allocScene (sizeof (ComponentManager<Sprite>)))
+		ComponentManager<Sprite> ();
+	_componentManagers[ComponentType::ANIMATOR] = 
+		new (memMgr->allocScene (sizeof (ComponentManager<Animator>)))
+		ComponentManager<Animator> ();
+	_componentManagers[ComponentType::COLLIDER] = 
+		new (memMgr->allocScene (sizeof (ComponentManager<Collider>)))
+		ComponentManager<Collider> ();
+	_componentManagers[ComponentType::HUD] = 
+		new (memMgr->allocScene (sizeof (ComponentManager<Hud>)))
+		ComponentManager<Hud> ();
 }
 
 void World::initSystems (u32 mask)

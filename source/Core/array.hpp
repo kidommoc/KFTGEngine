@@ -79,6 +79,17 @@ public:
 
 	void shrink () { --size; }
 
+	array<T>& operator = (const array<T> &other)
+	{
+		size = other.size;
+		capability = other.capability;
+		MemoryManager::instance ()->freeAsset (arr);
+		arr = (T*) MemoryManager::instance ()
+			->allocAsset (capability * sizeof (T));
+		memcpy (arr, other.arr, capability * sizeof (T));
+		return *this;
+	}
+
 	T& operator [] (u32 index) { return arr[index]; }
 	const T& operator [] (u32 index) const { return arr[index]; }
 

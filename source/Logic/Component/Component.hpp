@@ -3,34 +3,30 @@
 
 #include "../../Core/types.hpp"
 
-#define COMPONENTS_NUM 16
+#define COMPONENTS_NUM 8
 
 namespace KFTG
 {
 
 enum ComponentType
 {
-	/*
 	TRANSFORM,
 	MOTION,
-	CAMARA,
-	JOYSTICK,
-	ACTION,
+	CAMERA,
+	PLAYER,
 	SPRITE,
-	ANIMATION,
+	ANIMATOR,
 	COLLIDER,
-	UI
-	*/
+	HUD
 };
 
 // each component should inherit it and set its own mask
 
 struct Component
 {
-	const u16 type;
+	Component (ComponentType t) : type (t) {}
 
-	virtual bool operator == (Component &other) = 0;
-	virtual bool operator != (Component &other) = 0;
+	const u16 type;
 };
 
 class ComponentsMask

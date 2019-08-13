@@ -36,7 +36,7 @@ public:
 	void remove (Entity e)
 	{
 		--_componentsCount;
-		u16 index = _entityMap.query (e.id);
+		u16 index = *_entityMap.query (e.id);
 		_entityMap.remove (e.id);
 		_components[index] = _components[_componentsCount];
 		_components.shrink ();
@@ -51,14 +51,7 @@ public:
 
 	ComponentType *queryComponent (Entity e)
 	{
-		return _components[_entityMap.query (e.id)];
-	}
-
-	Entity queryEntity (ComponentType &c)
-	{
-		for (u16 i = 0; i < _components.len (); ++i)
-			if (_components[i] == c)
-				return {_componentToEntity[i]};
+		return _components[*_entityMap.query (e.id)];
 	}
 
 private:
